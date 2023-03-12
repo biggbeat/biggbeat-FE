@@ -1,0 +1,21 @@
+@import "../../styles/variables.module.scss";
+$background-secondary: $background-color-secondary;
+.productCardWrapper {
+    margin: 20px 10px;
+    border-radius: 8px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    .prodImageWrapper {
+        background-color: $background-secondary;
+    }
+    .prodImage {
+        object-fit: contain;
+        // width: 220px !important;
+        width: 90% !important;
+        height: 200px !important;
+        position: relative !important;
+        // height: unset !important;
+        @media only screen and (min-width: 600px) {
+            // height: 550px !important;
+        }
+    }
+}

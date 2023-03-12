@@ -1,0 +1,55 @@
+@import "../../styles/variables.module.scss";
+$background-secondary: $background-color-secondary;
+.categorySelectorWrapper {
+    margin-top: 50px;
+    // background-color: $background-secondary;
+
+    .categoryImage {
+        object-fit: contain;
+        // width: 220px !important;
+        width: 90% !important;
+        height: 200px !important;
+        position: relative !important;
+        // height: unset !important;
+        @media only screen and (min-width: 600px) {
+            // height: 550px !important;
+        }
+    }
+    .bannertitleWrapper {
+        h1 {
+            font-size: 50px;
+            @media only screen and (max-width: 991px) {
+                font-size: 25px;
+            }
+            @media only screen and (max-width: 480px) {
+                font-size: 18px;
+            }
+        }
+        h2 {
+            @media only screen and (max-width: 991px) {
+                font-size: 17px;
+            }
+            @media only screen and (max-width: 480px) {
+                font-size: 14px;
+            }
+        }
+    }
+    .viewBtnWrapper {
+        display: flex;
+        justify-content: flex-end;
+    }
+    .titleWrapper {
+        .selectCategorySlider {
+            display: flex;
+            align-items: center;
+            .categoryTitlerWrapper {
+                display: flex;
+                justify-content: center;
+                text-align: center;
+            }
+        }
+    }
+    .productSlider {
+        background-color: #fff !important;
+    }
+}

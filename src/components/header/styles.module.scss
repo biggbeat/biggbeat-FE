@@ -1,0 +1,87 @@
+@import "../../styles//variables.module.scss";
+
+$hoverColor: $font-color-secondary;
+$hoverColor: $font-color-secondary;
+$bg-color: $background-color-primary;
+.mainHeader {
+    // margin: 0 auto;
+    display: flex;
+    position: sticky;
+    top: 0;
+    background-color: $bg-color;
+    z-index: 1;
+
+    justify-content: center;
+    align-items: center;
+
+    .mainHeaderInnerWrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 80%;
+        @media only screen and (max-width: 991px) {
+            width: 95%;
+        }
+        @media only screen and (max-width: 610px) {
+            padding: 10px 0;
+        }
+        .brand {
+            font-weight: bold;
+            font-size: xx-large;
+            @media only screen and (max-width: 610px) {
+                font-size: larger;
+            }
+        }
+        .navlinks {
+            width: 70%;
+            display: flex;
+            justify-content: space-between;
+            .navTextLinks {
+                .linkstext {
+                    margin: 0 10px;
+                    position: relative;
+                    line-height: 0%;
+                    margin-bottom: 5px;
+                    cursor: pointer;
+                    @media only screen and (max-width: 610px) {
+                        display: none;
+                    }
+                }
+                .linkstext:hover {
+                    color: $hoverColor;
+                }
+
+                .linkstext::after {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    content: "";
+                    width: 0;
+                    height: 2px;
+                    background: $hoverColor;
+                    transition: width 0.3s;
+                }
+                .linkstext:hover::after {
+                    width: 100%;
+                }
+            }
+            .navIconLinks {
+                .navIcon {
+                    font-size: large;
+                    margin-right: 10px;
+                    :hover {
+                        color: $hoverColor;
+                    }
+                    @media only screen and (max-width: 610px) {
+                        display: none;
+                    }
+                }
+                .navIconMenuDrawer {
+                    @media only screen and (min-width: 610px) {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
