@@ -3,20 +3,38 @@ import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.scss'
 import { ACCESS_TYPES, BRAND_NAME } from '@/constants'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   CategorySectionSlider,
   HeroSection,
   CategorySelectionSection,
 } from '@/components'
+import dataHandler from '@/services/data-handler'
+import { useEffect } from 'react'
+import {
+  getCountriesRequest,
+  userLoginRequest,
+  userLogOutRequest,
+} from '@/store/slicers/user'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   const state = useSelector((state) => state)
-  console.log({ state })
+  const dispatch = useDispatch()
+  console.log({ state }, dataHandler.store.getState().user.user.jwt)
 
-  // console.log('getStore', dataHandler.getStore().getState())
+  useEffect(() => {
+    dispatch(
+      getCountriesRequest({
+        payload: null,
+        responseCallback: (status, resp) => {
+          console.log({ resp })
+        },
+      })
+    )
+    // dataHandler.getStore().dispatch(userLoginRequest())
+  }, [])
   return (
     <>
       <Head>
