@@ -28,9 +28,9 @@ const Header = () => {
           <span className={style.brand}>BiggBeats</span>
           <span className={style.navlinks}>
             <span className={style.navTextLinks}>
-              <span className={style.linkstext}>Home </span>
-              <span className={style.linkstext}>Shop</span>
-              <span className={style.linkstext}>Featured</span>
+              <span className={style.linkstext}>HOME </span>
+              <span className={style.linkstext}>SHOP</span>
+              <span className={style.linkstext}>FEATURED</span>
             </span>
             <span className={style.navIconLinks}>
               <SearchOutlined className={style.navIcon} />

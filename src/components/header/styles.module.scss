@@ -10,7 +10,7 @@ $bg-color: $background-color-primary;
     top: 0;
     background-color: $bg-color;
     z-index: 1;
-
+    border-bottom: 1px solid grey;
     justify-content: center;
     align-items: center;
 
@@ -18,7 +18,10 @@ $bg-color: $background-color-primary;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 80%;
+        width: 95%;
+       
+        padding-top:7px;
+        padding-bottom:7px;
         @media only screen and (max-width: 991px) {
             width: 95%;
         }
@@ -38,7 +41,7 @@ $bg-color: $background-color-primary;
             justify-content: space-between;
             .navTextLinks {
                 .linkstext {
-                    margin: 0 10px;
+                    margin: 0 20px;
                     position: relative;
                     line-height: 0%;
                     margin-bottom: 5px;
@@ -69,6 +72,7 @@ $bg-color: $background-color-primary;
                 .navIcon {
                     font-size: large;
                     margin-right: 10px;
+                    margin-left: 10px;
                     :hover {
                         color: $hoverColor;
                     }
