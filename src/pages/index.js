@@ -22,17 +22,17 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   const state = useSelector((state) => state)
   const dispatch = useDispatch()
-  console.log({ state }, dataHandler.store.getState().user.user.jwt)
+  // console.log({ state }, dataHandler.store.getState().user.user.jwt)
 
   useEffect(() => {
-    dispatch(
-      getCountriesRequest({
-        payload: null,
-        responseCallback: (status, resp) => {
-          console.log({ resp })
-        },
-      })
-    )
+    // dispatch(
+    //   getCountriesRequest({
+    //     payload: null,
+    //     responseCallback: (status, resp) => {
+    //       console.log({ resp })
+    //     },
+    //   })
+    // )
     // dataHandler.getStore().dispatch(userLoginRequest())
   }, [])
   return (

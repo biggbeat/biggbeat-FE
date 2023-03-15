@@ -3,6 +3,8 @@
 $hoverColor: $font-color-secondary;
 $hoverColor: $font-color-secondary;
 $bg-color: $background-color-primary;
+$bgRed: $background-red;
+
 .mainHeader {
     // margin: 0 auto;
     display: flex;
@@ -10,7 +12,7 @@ $bg-color: $background-color-primary;
     top: 0;
     background-color: $bg-color;
     z-index: 1;
-    border-bottom: 1px solid grey;
+    border-bottom: 2px solid $bgRed;
     justify-content: center;
     align-items: center;
 

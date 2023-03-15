@@ -33,7 +33,7 @@ const CategorySectionSlider = () => {
           xs={{ span: 12 }}
           className={style.viewBtnWrapper}
         >
-          <Button type="primary">View all</Button>
+          <Button type="ghost" className={`${style.redBg} ${style.textWhite}`}>View all</Button>
         </Col>
         <Col span={24}>
           <Slider {...settings} autoplay>

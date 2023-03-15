@@ -1,21 +1,82 @@
-@import "../../styles/variables.module.scss";
+@import '../../styles/variables.module.scss';
 $background-secondary: $background-color-secondary;
+$bgRed: $background-red;
+
+.hide {
+  display: block;
+}
+
+.bgRed {
+  background-color : $bgRed
+}
+.textWhite {
+ color: white;
+}
+
 .productCardWrapper {
-    margin: 20px 10px;
-    border-radius: 8px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    .prodImageWrapper {
-        background-color: $background-secondary;
+  margin: 20px 10px;
+  border-radius: 8px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+  &:hover {
+    .hide {
+      display: block;
     }
-    .prodImage {
-        object-fit: contain;
-        // width: 220px !important;
-        width: 90% !important;
-        height: 200px !important;
-        position: relative !important;
-        // height: unset !important;
-        @media only screen and (min-width: 600px) {
-            // height: 550px !important;
-        }
+    .iconDiv{
+        visibility: visible;
     }
+  }
+
+  .prodImageWrapper {
+    background-color: $background-secondary;
+  }
+  .prodImage {
+    object-fit: contain;
+    // width: 220px !important;
+    width: 90% !important;
+    height: 200px !important;
+    position: relative !important;
+    // height: unset !important;
+    @media only screen and (min-width: 600px) {
+      // height: 550px !important;
+    }
+  }
+  .iconDiv {
+    display: flex;
+    visibility: hidden;
+    justify-content: space-evenly;
+    margin: 10px auto;
+    .icon {
+      font-size: 150% !important;
+    }
+  }
+
+  .infoDiv {
+    margin: 10px 10px 10px 10px;
+
+    .title {
+      font-size: 14px;
+      text-transform: uppercase;
+      color: #6a6a6a;
+      line-height: 16px;
+    }
+
+    .priceBox {
+      float: left;
+      display: inline-block;
+      color: #69686c;
+
+      .newPrice {
+        color:$bgRed;
+        font-size: 15px;
+        font-weight: 700;
+      }
+      .oldPrice {
+        font-size: 12px;
+        text-decoration: line-through;
+        font-weight: normal;
+        margin-left: 4px !important;
+      }
+    }
+  }
 }

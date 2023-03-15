@@ -41,6 +41,7 @@ export default function App({ Component, pageProps }) {
           colorPrimaryHover: variables.secondaryText,
           colorTextPlaceholder: variables.placeholderColor,
           colorPrimaryBg: variables.bgPrimary,
+          bgRed: variables.bgRed,
         },
       }}
     >
