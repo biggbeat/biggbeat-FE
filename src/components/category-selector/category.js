@@ -43,7 +43,7 @@ const CategorySelectionSection = () => {
   return (
     <div className={`page_wrapper ${style.categorySelectorWrapper}`}>
       <Row gutter={[16, 16]} align="middle" justify={'center'}>
-        <Col
+        {/* <Col
           xs={{ span: 24 }}
           sm={{ span: 20 }}
           md={{ span: 12 }}
@@ -71,7 +71,7 @@ const CategorySelectionSection = () => {
               <div>Women</div>
             </div>
           </Slider>
-        </Col>
+        </Col> */}
 
         <Col span={24}>
           <Slider {...settings} autoplay className={style.productSlider}>

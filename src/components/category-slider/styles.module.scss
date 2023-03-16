@@ -3,11 +3,11 @@ $background-secondary: $background-color-secondary;
 $bgRed: $background-red;
 $textWhite: $text-white;
 
-.redBg{
+.redBg {
     background-color: $bgRed;
 }
 
-.textWhite{
+.textWhite {
     color: $textWhite;
 }
 
@@ -15,6 +15,10 @@ $textWhite: $text-white;
     margin-top: 20px;
     // background-color: $background-secondary;
 
+    .selectCategorySlider {
+        display: flex;
+        align-items: center;
+    }
     .categoryImage {
         object-fit: contain;
         // width: 220px !important;

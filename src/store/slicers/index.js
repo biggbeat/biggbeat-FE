@@ -1,3 +1,5 @@
 import { combineReducers } from '@reduxjs/toolkit'
 import user from './user'
-export default combineReducers({ user })
+import general from './general'
+
+export default combineReducers({ user, general })

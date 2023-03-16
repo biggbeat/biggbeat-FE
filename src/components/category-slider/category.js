@@ -1,4 +1,5 @@
 import Assets from '@/Assets'
+import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
 import { Button, Col, Row, Typography } from 'antd'
 import Image from 'next/image'
 import Slider from 'react-slick'
@@ -10,6 +11,8 @@ const settings = {
   speed: 500,
   slidesToShow: 4,
   slidesToScroll: 1,
+  nextArrow: <NextArrow />,
+  prevArrow: <PrevArrow />,
 }
 const CategorySectionSlider = () => {
   return (
@@ -33,10 +36,12 @@ const CategorySectionSlider = () => {
           xs={{ span: 12 }}
           className={style.viewBtnWrapper}
         >
-          <Button type="ghost" className={`${style.redBg} ${style.textWhite}`}>View all</Button>
+          <Button type="ghost" className={`${style.redBg} ${style.textWhite}`}>
+            View all
+          </Button>
         </Col>
         <Col span={24}>
-          <Slider {...settings} autoplay>
+          <Slider {...settings} autoplay className={style.selectCategorySlider}>
             <div className={style.imageSliderWrapper}>
               <Image
                 fill
@@ -92,3 +97,29 @@ const CategorySectionSlider = () => {
   )
 }
 export default CategorySectionSlider
+
+function NextArrow(props) {
+  const { className, style, onClick } = props
+  return (
+    <Button
+      type="link"
+      shape="circle"
+      size="small"
+      icon={<ArrowRightOutlined />}
+      onClick={onClick}
+    />
+  )
+}
+function PrevArrow(props) {
+  const { className, style, onClick } = props
+  console.log({ props })
+  return (
+    <Button
+      type="link"
+      shape="circle"
+      size="small"
+      icon={<ArrowLeftOutlined />}
+      onClick={onClick}
+    />
+  )
+}

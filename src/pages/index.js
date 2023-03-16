@@ -16,6 +16,8 @@ import {
   userLoginRequest,
   userLogOutRequest,
 } from '@/store/slicers/user'
+import { getBannerRequest } from '@/store/slicers/general'
+import { store } from '@/store/store'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -51,7 +53,12 @@ export default function Home() {
     </>
   )
 }
-export async function getStaticProps() {
+
+export async function getServerSideProps() {
+  // const dispatch = use Dispatch()
+  // dataHandler.getStore().dispatch(getBannerRequest())
+  const data = await getBannerRequest()
+  // Pass data to the page via props
   return {
     props: {
       accessType: ACCESS_TYPES.PUBLIC,
