@@ -2,7 +2,12 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.scss'
-import { ACCESS_TYPES, BRAND_NAME } from '@/constants'
+import {
+  ACCESS_TYPES,
+  BRAND_NAME,
+  GET_HOME_BANNER_URL,
+  BASE_URL,
+} from '@/constants'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   CategorySectionSlider,
@@ -18,6 +23,7 @@ import {
 } from '@/store/slicers/user'
 import { getBannerRequest } from '@/store/slicers/general'
 import { store } from '@/store/store'
+import { getCall } from '@/services/services'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -55,9 +61,12 @@ export default function Home() {
 }
 
 export async function getServerSideProps() {
-  // const dispatch = use Dispatch()
+  // const dispatch = useDispatch()
   // dataHandler.getStore().dispatch(getBannerRequest())
-  const data = await getBannerRequest()
+  // const data = await getBannerRequest()
+  // dispatch(getBannerRequest())
+  const response = await getCall(GET_HOME_BANNER_URL)
+  console.log('response', response.data)
   // Pass data to the page via props
   return {
     props: {

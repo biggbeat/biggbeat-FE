@@ -1,12 +1,14 @@
 /* eslint-disable */
 import { BASE_URL } from '@/constants'
 import { userLogOutRequest } from '@/store/slicers/user'
+import { store } from '@/store/store'
 import axios from 'axios'
 import dataHandler from './data-handler'
 
 export const getCall = async (urlObj, params = '', query = '', headers) =>
   new Promise(async (resolve, reject) => {
-    const USER_TOKEN = dataHandler.store.getState().user.user.jwt
+    const USER_TOKEN = store().getState()
+    console.log({ USER_TOKEN })
     let Url = `${urlObj.url}`
     if (params) {
       Url = `${Url}/` + params

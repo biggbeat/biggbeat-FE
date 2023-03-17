@@ -1,7 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import reducers from '@/store/slicers'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import { createWrapper } from 'next-redux-wrapper'
 
 const persistConfig = {
   key: 'BIGGBEATS',
@@ -10,10 +11,15 @@ const persistConfig = {
 }
 
 const pReducer = persistReducer(persistConfig, reducers)
-
-const store = configureStore({
-  reducer: pReducer,
+const customizedMiddleware = getDefaultMiddleware({
+  serializableCheck: false,
 })
-let persistor = persistStore(store)
+const store = () =>
+  configureStore({
+    reducer: pReducer,
+    middleware: customizedMiddleware,
+  })
+// const persistor = persistStore(store)
+const wrapper = createWrapper(store)
 
-export { store, persistor }
+export { store, wrapper }

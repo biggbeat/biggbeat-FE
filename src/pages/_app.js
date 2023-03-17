@@ -1,7 +1,7 @@
 // import 'antd/dist/antd.css'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import { store, persistor } from '@/store/store'
+import { store, persistor, wrapper } from '@/store/store'
 import '@/styles/globals.css'
 import { ConfigProvider, Spin } from 'antd'
 import { Provider } from 'react-redux'
@@ -12,7 +12,7 @@ import dataHandler from '@/services/data-handler'
 import { PersistGate } from 'redux-persist/integration/react'
 import { Jost } from '@next/font/google'
 const jost = Jost({ subsets: ['latin'] })
-export default function App({ Component, pageProps }) {
+function App({ Component, pageProps }) {
   const [loading, setLoading] = useState(() => true)
 
   useEffect(() => {
@@ -45,13 +45,14 @@ export default function App({ Component, pageProps }) {
         },
       }}
     >
-      <Provider store={store}>
-        <PersistGate persistor={persistor} loading={null}>
-          <AuthSharedLayout>
-            <Component {...pageProps} />
-          </AuthSharedLayout>
-        </PersistGate>
-      </Provider>
+      {/* <Provider store={store}> */}
+      {/* <PersistGate persistor={persistor} loading={null}> */}
+      <AuthSharedLayout>
+        <Component {...pageProps} />
+      </AuthSharedLayout>
+      {/* </PersistGate> */}
+      {/* </Provider> */}
     </ConfigProvider>
   )
 }
+export default wrapper.withRedux(App)
