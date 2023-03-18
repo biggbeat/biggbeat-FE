@@ -15,21 +15,20 @@ import {
   CategorySelectionSection,
 } from '@/components'
 import dataHandler from '@/services/data-handler'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import {
   getCountriesRequest,
   userLoginRequest,
   userLogOutRequest,
 } from '@/store/slicers/user'
-import { getBannerRequest } from '@/store/slicers/general'
-import { store } from '@/store/store'
-import { getCall } from '@/services/services'
+import { MainContext } from '@/context/MainContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  const state = useSelector((state) => state)
-  const dispatch = useDispatch()
+  const { MainState, dispatch } = useContext(MainContext)
+  // const state = useSelector((state) => state)
+  // const dispatch = useDispatch()
   // console.log({ state }, dataHandler.store.getState().user.user.jwt)
 
   useEffect(() => {
@@ -42,7 +41,9 @@ export default function Home() {
     //   })
     // )
     // dataHandler.getStore().dispatch(userLoginRequest())
-  }, [])
+
+    console.log('MainState : ', MainState)
+  }, [MainState])
   return (
     <>
       <Head>
