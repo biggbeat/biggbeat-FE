@@ -59,4 +59,4 @@ function App({ Component, pageProps }) {
     </ConfigProvider>
   )
 }
-export default wrapper.withRedux(App)
+export default App

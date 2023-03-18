@@ -144,7 +144,7 @@ main {
   flex: 1;  
 }
 .text-animate:hover {
-  color: #ff871d;
+  color: #db2525;
 }
 
 .text-animate::after {
@@ -154,7 +154,7 @@ main {
   content: "";
   width: 0;
   height: 2px;
-  background: #ff871d;
+  background: #db2525;
   transition: width 0.3s;
 }
 .text-animate:hover::after {

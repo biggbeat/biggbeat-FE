@@ -13,6 +13,7 @@ import {
   CategorySectionSlider,
   HeroSection,
   CategorySelectionSection,
+  ProductSection,
 } from '@/components'
 import dataHandler from '@/services/data-handler'
 import { useContext, useEffect } from 'react'
@@ -22,26 +23,21 @@ import {
   userLogOutRequest,
 } from '@/store/slicers/user'
 import { MainContext } from '@/context/MainContext'
+import { getCall } from '@/services/services'
+import { getBannerRequest } from '@/actions'
+import { getSectionsRequest } from '@/actions/generalActions'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export default function Home(props) {
   const { MainState, dispatch } = useContext(MainContext)
   // const state = useSelector((state) => state)
   // const dispatch = useDispatch()
   // console.log({ state }, dataHandler.store.getState().user.user.jwt)
+  const banners = props?.banners.data?.data
+  const sections = props?.banners.data?.data
 
   useEffect(() => {
-    // dispatch(
-    //   getCountriesRequest({
-    //     payload: null,
-    //     responseCallback: (status, resp) => {
-    //       console.log({ resp })
-    //     },
-    //   })
-    // )
-    // dataHandler.getStore().dispatch(userLoginRequest())
-
     console.log('MainState : ', MainState)
   }, [MainState])
   return (
@@ -53,24 +49,24 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.page_wrapper}>
-        <HeroSection />
+        <HeroSection banners={banners || []} />
         <CategorySectionSlider />
         <CategorySelectionSection />
+        <ProductSection sections={sections || []} />
       </div>
     </>
   )
 }
 
 export async function getServerSideProps() {
-  // const dispatch = useDispatch()
-  // dataHandler.getStore().dispatch(getBannerRequest())
-  // const data = await getBannerRequest()
-  // dispatch(getBannerRequest())
-  const response = await getCall(GET_HOME_BANNER_URL)
-  console.log('response', response.data)
+  const banners = await getBannerRequest()
+  const sections = await getSectionsRequest()
+
   // Pass data to the page via props
   return {
     props: {
+      banners,
+      sections,
       accessType: ACCESS_TYPES.PUBLIC,
     },
   }

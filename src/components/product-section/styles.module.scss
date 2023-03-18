@@ -1,16 +1,9 @@
 @import "../../styles/variables.module.scss";
 $background-secondary: $background-color-secondary;
-$bgRed: $background-red;
-$textWhite: $text-white;
-
-.categorySliderWrapper {
-    margin-top: 20px;
+.sectionWrapper {
+    margin-top: 50px;
     // background-color: $background-secondary;
 
-    .selectCategorySlider {
-        display: flex;
-        align-items: center;
-    }
     .categoryImage {
         object-fit: contain;
         // width: 220px !important;
@@ -44,34 +37,19 @@ $textWhite: $text-white;
     .viewBtnWrapper {
         display: flex;
         justify-content: flex-end;
-        .redBg {
-            text-align: right;
-            background-color: $bgRed;
-        }
-
-        .textWhite {
-            text-align: right;
-
-            color: $textWhite;
-        }
     }
     .titleWrapper {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        h3 {
-            cursor: pointer;
+        .selectCategorySlider {
+            display: flex;
+            align-items: center;
+            .categoryTitlerWrapper {
+                display: flex;
+                justify-content: center;
+                text-align: center;
+            }
         }
     }
-}
-.imageSliderWrapper {
-    // width: 100%;
-    // display: flex !important;
-    // justify-content: center;
-    // align-items: center;
-    outline: none;
-    h4 {
-        font-weight: 500;
-        text-align: center;
+    .productSlider {
+        background-color: #fff !important;
     }
 }

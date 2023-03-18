@@ -4,7 +4,6 @@ import { MainReducer, SET_DATA } from './reducers/MainReducer'
 export const MainContext = React.createContext(null)
 
 export default function MainProvider({ children }) {
-
   const [MainState, dispatch] = useReducer(MainReducer, {
     data: false,
   })

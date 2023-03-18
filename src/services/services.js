@@ -5,10 +5,9 @@ import { store } from '@/store/store'
 import axios from 'axios'
 import dataHandler from './data-handler'
 
+const USER_TOKEN = ''
 export const getCall = async (urlObj, params = '', query = '', headers) =>
   new Promise(async (resolve, reject) => {
-    const USER_TOKEN = store().getState()
-    console.log({ USER_TOKEN })
     let Url = `${urlObj.url}`
     if (params) {
       Url = `${Url}/` + params
@@ -35,15 +34,12 @@ export const getCall = async (urlObj, params = '', query = '', headers) =>
       resolve(response)
     } catch (e) {
       if (e?.response?.status === 401) {
-        dataHandler.getStore().dispatch(userLogOutRequest())
       }
       reject(e)
     }
   })
 export const deleteCall = async (urlObj, params = '', query = '', headers) =>
   new Promise(async (resolve, reject) => {
-    const USER_TOKEN = dataHandler.store.getState().user.user.jwt
-
     let Url = `${urlObj.url}`
     if (params) {
       Url = `${Url}/` + params
@@ -64,7 +60,6 @@ export const deleteCall = async (urlObj, params = '', query = '', headers) =>
       resolve(response)
     } catch (e) {
       if (e?.response?.status === 401) {
-        dataHandler.getStore().dispatch(userLogOutRequest())
       }
       reject(e)
     }
@@ -78,8 +73,6 @@ export const postCall = async (
   headers
 ) =>
   new Promise(async (resolve, reject) => {
-    const USER_TOKEN = dataHandler.store.getState().user.user.jwt
-
     let Url = `${urlObj.url}`
     if (params) {
       Url = `${Url}/` + params
@@ -102,7 +95,6 @@ export const postCall = async (
     } catch (e) {
       console.log('err', e)
       if (e?.response?.status === 401) {
-        dataHandler.getStore().dispatch(userLogOutRequest())
       }
       reject(e)
     }
@@ -115,8 +107,6 @@ export const patchCall = async (
   headers
 ) =>
   new Promise(async (resolve, reject) => {
-    const USER_TOKEN = dataHandler.store.getState().user.user.jwt
-
     let Url = `${urlObj.url}`
     if (params) {
       Url = `${Url}/` + params
@@ -137,7 +127,6 @@ export const patchCall = async (
       resolve(response)
     } catch (e) {
       if (e?.response?.status === 401) {
-        dataHandler.getStore().dispatch(userLogOutRequest())
       }
       reject(null)
     }

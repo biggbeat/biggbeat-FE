@@ -17,29 +17,29 @@ const settings = {
 const CategorySectionSlider = () => {
   return (
     <div className={`page_wrapper ${style.categorySliderWrapper}`}>
-      <Row gutter={[16, 16]}>
-        <Col
-          lg={{ span: 4 }}
-          xl={{ span: 4 }}
-          md={{ span: 5 }}
-          sm={{ span: 10 }}
-          xs={{ span: 12 }}
-          className={style.titleWrapper}
-        >
+      <Row gutter={[16, 16]} justify="space-between">
+        <Col className={style.titleWrapper}>
           <h3 className={`text-animate`}>Shop by Categories</h3>
         </Col>
         <Col
-          lg={{ span: 20 }}
-          xl={{ span: 20 }}
-          md={{ span: 19 }}
-          sm={{ span: 14 }}
-          xs={{ span: 12 }}
-          className={style.viewBtnWrapper}
+          lg={{ span: 12 }}
+          xl={{ span: 12 }}
+          md={{ span: 12 }}
+          sm={{ span: 8 }}
+          xs={{ span: 0 }}
         >
-          <Button type="ghost" className={`${style.redBg} ${style.textWhite}`}>
-            View all
-          </Button>
+          <span className={style.viewBtnWrapper}>
+            <Button
+              type="primary"
+              className={`${style.redBg} ${style.textWhite}`}
+            >
+              View all
+            </Button>
+          </span>
         </Col>
+      </Row>
+
+      <Row gutter={[16, 16]}>
         <Col span={24}>
           <Slider {...settings} autoplay className={style.selectCategorySlider}>
             <div className={style.imageSliderWrapper}>
@@ -112,7 +112,6 @@ function NextArrow(props) {
 }
 function PrevArrow(props) {
   const { className, style, onClick } = props
-  console.log({ props })
   return (
     <Button
       type="link"
