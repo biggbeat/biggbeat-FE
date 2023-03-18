@@ -1,4 +1,5 @@
 // import 'antd/dist/antd.css'
+import 'bootstrap/dist/css/bootstrap.css'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import { store, persistor } from '@/store/store'
@@ -11,16 +12,17 @@ import { useEffect, useState } from 'react'
 import dataHandler from '@/services/data-handler'
 import { PersistGate } from 'redux-persist/integration/react'
 import { Jost } from '@next/font/google'
+import MainProvider from '@/context/MainContext'
 const jost = Jost({ subsets: ['latin'] })
 export default function App({ Component, pageProps }) {
   const [loading, setLoading] = useState(() => true)
 
   useEffect(() => {
-    if (store) {
-      console.log({ store })
-      dataHandler.setStore(store)
+    // if (store) {
+    //   console.log({ store })
+    //   dataHandler.setStore(store)
+    // }
       setLoading(false)
-    }
   }, [])
 
   console.log({ pageProps, Component })
@@ -45,13 +47,15 @@ export default function App({ Component, pageProps }) {
         },
       }}
     >
-      <Provider store={store}>
-        <PersistGate persistor={persistor} loading={null}>
-          <AuthSharedLayout>
-            <Component {...pageProps} />
-          </AuthSharedLayout>
-        </PersistGate>
-      </Provider>
+      <MainProvider>
+        {/* <Provider store={store}> */}
+          {/* <PersistGate persistor={persistor} loading={null}> */}
+            <AuthSharedLayout>
+              <Component {...pageProps} />
+            </AuthSharedLayout>
+          {/* </PersistGate> */}
+        {/* </Provider> */}
+      </MainProvider>
     </ConfigProvider>
   )
 }
