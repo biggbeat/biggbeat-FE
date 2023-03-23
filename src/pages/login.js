@@ -1,21 +1,7 @@
 import Head from 'next/head'
-import { Inter } from '@next/font/google'
-import { useDispatch, useSelector } from 'react-redux'
 import styles from '@/styles/Login.module.scss'
 
-import { useEffect } from 'react'
-import { userLogOutRequest } from '@/store/slicers/user'
-
 export default function Login() {
-  const state = useSelector((state) => state)
-  const dispatch = useDispatch()
-
-  console.log({ state })
-
-  useEffect(() => {
-    dispatch(userLogOutRequest())
-  }, [])
-
   return (
     <>
       <Head>

@@ -35,6 +35,8 @@ function App({ Component, pageProps }) {
     <ConfigProvider
       theme={{
         token: {
+          colorIcon: variables.primaryText,
+          colorIconHover: variables.secondaryText,
           fontFamily: `Jost`,
           colorPrimary: variables.primaryText,
           colorLink: variables.primaryText,

@@ -1,2 +1,12 @@
-import { getBannerRequest } from './generalActions'
-export { getBannerRequest }
+import {
+  getBannerRequest,
+  getCategoriesRequest,
+  getSectionsRequest,
+} from './generalActions'
+import { getAllCategoriesProductsRequest } from './category'
+export {
+  getBannerRequest,
+  getCategoriesRequest,
+  getSectionsRequest,
+  getAllCategoriesProductsRequest,
+}

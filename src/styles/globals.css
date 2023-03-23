@@ -143,6 +143,9 @@ footer {
 main {
   flex: 1;  
 }
+.slick-list{
+  flex:1;
+}
 .text-animate:hover {
   color: #db2525;
 }

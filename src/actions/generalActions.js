@@ -1,4 +1,8 @@
-import { GET_HOME_BANNER_URL, GET_SECTIONS_URL } from '@/constants'
+import {
+  GET_CATEGORY_URL,
+  GET_HOME_BANNER_URL,
+  GET_SECTIONS_URL,
+} from '@/constants'
 import { manupulateResponse } from '@/services/responseManupulator'
 import { getCall } from '@/services/services'
 
@@ -13,6 +17,15 @@ export const getBannerRequest = async () => {
 export const getSectionsRequest = async () => {
   try {
     const res = await getCall(GET_SECTIONS_URL)
+    return manupulateResponse(res)
+  } catch (error) {
+    return manupulateResponse(error)
+  }
+}
+
+export const getCategoriesRequest = async () => {
+  try {
+    const res = await getCall(GET_CATEGORY_URL)
     return manupulateResponse(res)
   } catch (error) {
     return manupulateResponse(error)

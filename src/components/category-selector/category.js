@@ -1,30 +1,53 @@
 import Assets from '@/Assets'
+import Loading from '@/pages/loading'
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
-import { Button, Col, Row, Typography } from 'antd'
+import { Button, Col, Row, Spin, Typography } from 'antd'
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Slider from 'react-slick'
+import Loader from '../loader'
 import ProductCard from '../product-card/product-card'
 import style from './styles.module.scss'
 
 const settings = {
   dots: false,
-  infinite: true,
+  infinite: false,
   speed: 500,
   slidesToShow: 4,
   slidesToScroll: 1,
+
+  responsive: [
+    {
+      breakpoint: 1400,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 1200,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 991,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 550,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+  ],
 }
 
-const settingsSelectCategory = {
-  dots: false,
-  infinite: false,
-  speed: 500,
-
-  slidesToShow: 3,
-  slidesToScroll: 1,
-  nextArrow: <NextArrow />,
-  prevArrow: <PrevArrow />,
-}
 const Products = [
   {
     url: Assets.ShoeImage1,
@@ -39,7 +62,15 @@ const Products = [
     url: Assets.ShoeImage4,
   },
 ]
-const CategorySelectionSection = () => {
+const CategorySelectionSection = ({ products, selectedcategory }) => {
+  console.log({ products })
+  const [loader, setloader] = useState(true)
+  useEffect(() => {
+    setloader(true)
+    setTimeout(() => {
+      setloader(false)
+    }, 1000)
+  }, [selectedcategory])
   return (
     <div className={`page_wrapper ${style.categorySelectorWrapper}`}>
       <Row gutter={[16, 16]} align="middle" justify={'center'}>
@@ -74,11 +105,16 @@ const CategorySelectionSection = () => {
         </Col> */}
 
         <Col span={24}>
-          <Slider {...settings} autoplay className={style.productSlider}>
-            {Products.map((item) => (
-              <ProductCard item={item} />
-            ))}
-          </Slider>
+          {loader ? (
+            <Loader />
+          ) : (
+            <Slider {...settings} autoplay className={style.productSlider}>
+              {products?.map((item) => {
+                console.log({ item })
+                return <ProductCard item={item} />
+              })}
+            </Slider>
+          )}
         </Col>
       </Row>
     </div>

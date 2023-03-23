@@ -4,6 +4,10 @@ export const BRAND_NAME = 'BiggBeats'
 
 export const ACCESS_TYPES = { PUBLIC: 'PUBLIC', PRIVATE: 'PRIVATE' }
 
+////////////////////public routes
+
+export const SINGLE_CATEGORY_ROUTE = '/shoes-men'
+
 export const GET_ALL_COUNTRIES_URL = {
   url: '/all',
   accesstoken: false,
@@ -19,6 +23,20 @@ export const GET_HOME_BANNER_URL = {
 //sections apis
 export const GET_SECTIONS_URL = {
   url: '/section/get-section',
+  accesstoken: false,
+  headers: false,
+}
+
+//category apis
+export const GET_CATEGORY_URL = {
+  url: '/category/get-category',
+  accesstoken: false,
+  headers: false,
+}
+
+//ALL category PRODS apis
+export const GET_ALL_CATEGORY_PRODUCTS_URL = {
+  url: '/category/get-category-products',
   accesstoken: false,
   headers: false,
 }

@@ -21,17 +21,17 @@ const SideBar = ({ open, handleClose }) => {
         border: '0px',
       }}
       closeIcon={<CloseCircleFilled style={{ color: variables.primaryText }} />}
-      width={
-        window.innerWidth > 1200
-          ? 800
-          : window.innerWidth > 500
-          ? 300
-          : window.innerWidth > 300
-          ? 250
-          : window.innerWidth > 200
-          ? 200
-          : 'auto'
-      }
+      // width={
+      //   window.innerWidth > 1200
+      //     ? 800
+      //     : window.innerWidth > 500
+      //     ? 300
+      //     : window.innerWidth > 300
+      //     ? 250
+      //     : window.innerWidth > 200
+      //     ? 200
+      //     : 'auto'
+      // }
       placement="left"
       onClose={handleClose}
       className={`${style.customBody} ${jost.className}`}
