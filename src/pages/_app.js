@@ -22,7 +22,7 @@ function App({ Component, pageProps }) {
     //   console.log({ store })
     //   dataHandler.setStore(store)
     // }
-    setLoading(false)
+    // setLoading(false)
   }, [])
 
   console.log({ pageProps, Component })

@@ -38,7 +38,6 @@ export default function Home(props) {
   const sections = props?.banners.data?.data
 
   useEffect(() => {
-    console.log('MainState : ', MainState)
   }, [MainState])
   return (
     <>
