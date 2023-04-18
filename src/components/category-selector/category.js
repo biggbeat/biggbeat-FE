@@ -74,36 +74,6 @@ const CategorySelectionSection = ({ products, selectedcategory }) => {
   return (
     <div className={`page_wrapper ${style.categorySelectorWrapper}`}>
       <Row gutter={[16, 16]} align="middle" justify={'center'}>
-        {/* <Col
-          xs={{ span: 24 }}
-          sm={{ span: 20 }}
-          md={{ span: 12 }}
-          lg={{ span: 12 }}
-          xl={{ span: 12 }}
-          className={style.titleWrapper}
-        >
-          <Slider
-            {...settingsSelectCategory}
-            className={style.selectCategorySlider}
-          >
-            <div className={style.categoryTitlerWrapper}>
-              <div>Sneakers</div>
-            </div>
-            <div className={style.categoryTitlerWrapper}>
-              <div>Leather</div>
-            </div>
-            <div className={style.categoryTitlerWrapper}>
-              <div>Sandals</div>
-            </div>
-            <div className={style.categoryTitlerWrapper}>
-              <div>Joggers</div>
-            </div>
-            <div className={style.categoryTitlerWrapper}>
-              <div>Women</div>
-            </div>
-          </Slider>
-        </Col> */}
-
         <Col span={24}>
           {loader ? (
             <Loader />

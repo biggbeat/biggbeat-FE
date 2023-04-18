@@ -163,3 +163,9 @@ main {
 .text-animate:hover::after {
   width: 100%;
 }
+
+/* antd global styles */
+.select-field{
+width: 100%;
+
+}

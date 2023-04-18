@@ -8,7 +8,9 @@ import CategorySelectionSection from './category-selector/category'
 import ProductCard from './product-card/product-card'
 import ProductSection from './product-section/product-section'
 import Loader from './loader'
+import Breadcrumbs from './BreadCrumbs/bread-crumb'
 export {
+  Breadcrumbs,
   Loader,
   ProductSection,
   ProductCard,

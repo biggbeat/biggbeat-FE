@@ -38,14 +38,14 @@ function App({ Component, pageProps }) {
           colorIcon: variables.primaryText,
           colorIconHover: variables.secondaryText,
           fontFamily: `Jost`,
-          colorPrimary: variables.primaryText,
+          colorPrimary: variables.secondaryText,
           colorLink: variables.primaryText,
           colorLinkActive: variables.secondaryText,
           colorLinkHover: variables.secondaryText,
           colorPrimaryHover: variables.secondaryText,
           colorTextPlaceholder: variables.placeholderColor,
-          colorPrimaryBg: variables.bgPrimary,
-          bgRed: variables.bgRed,
+          // colorPrimaryBg: variables.s,
+          // bgRed: variables.bgRed,
         },
       }}
     >

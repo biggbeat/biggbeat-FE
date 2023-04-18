@@ -6,6 +6,9 @@ import { Button, Col, Row } from 'antd'
 import styles from '@/styles/Product.module.scss'
 import { Breadcrumb } from 'antd'
 import StarRatings from 'react-star-ratings'
+import Assets from '@/Assets'
+import Image from 'next/image'
+import Link from 'next/link'
 
 const Category = (props) => {
   const router = useRouter()
@@ -79,17 +82,75 @@ const Category = (props) => {
         </div>
         <div className="col-12 col-lg-5">
           <h2 className={`${styles.productTitle} mb-2`}>Miles</h2>
-          <h1 className={`${styles.productDesc} mb-2`}>Miles Women Pink Sports Shoes</h1>
-          <StarRatings
-            starDimension="25px"
-            starSpacing='2px'
-            isSelectable={false}
-            rating={5}
-            starRatedColor="yellow"
-            // changeRating={onChangeRating}
-            numberOfStars={6}
-            name="rating"
-          />
+          <h1 className={`${styles.productDesc} mb-2`}>
+            Miles Women Pink Sports Shoes
+          </h1>
+          <div className={`${styles.starContainer}`}>
+            <StarRatings
+              starDimension="20px"
+              starSpacing="2px"
+              isSelectable={false}
+              rating={5}
+              starRatedColor="yellow"
+              // changeRating={onChangeRating}
+              numberOfStars={6}
+              name="rating"
+            />
+          </div>
+          <div className={`${styles.reviewBox} text-black `}>
+            <a className={`${styles.reviewBox} text-black`}>5 Reviews</a>
+          </div>
+          <div className={`${styles.priceContainer}`}>
+            <del>Rs 2845</del>
+            <span className={`${styles.price}`}>1799</span>
+            <span className={`${styles.percentage}`}>(-30%)</span>
+          </div>
+          <div className={styles.saleContainer}>
+            <p className={styles.p}>
+              Sale is
+              <strong>&nbsp;Live</strong>{' '}
+              <Image src={Assets.RedBlinkImage} width={17} height={17} />
+            </p>
+          </div>
+          <div className={styles.attributeContainer}>
+            <p className={styles.attribute}>More Colors</p>
+            <div>
+              {data.length &&
+                data.map((m) => (
+                  <Link href={m.image}>
+                    <img
+                      src={m.image}
+                      className={styles.imageBox}
+                      width={50}
+                      height={50}
+                    />
+                  </Link>
+                ))}
+            </div>
+
+            <p className={`${styles.attribute} mt-4`}>Select Size</p>
+            <div>
+              {/* {data.length &&
+                data.map((m) => (
+                  <span className={`${styles.sizes}`}>37</span>
+                ))} */}
+
+              <p className={`${styles.sizes}`}>37</p>
+              <p className={`${styles.sizes} ${styles.inactive}`}>38</p>
+              <p className={`${styles.sizes}`}>39</p>
+            </div>
+          </div>
+          <div className={styles.checkoutContainer}>
+            <div className={`${styles.checkoutBtnDiv}`}>
+              <button className={styles.checkoutBtn}>Add to Bag</button>
+            </div>
+            <div class={`${styles.wishlistContainer}`}>
+              <div class="wishlist-container">
+                {' '}
+                <span data-v-0508c599="">WISHLIST</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

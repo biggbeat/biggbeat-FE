@@ -13,6 +13,7 @@ import {
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { SINGLE_CATEGORY_ROUTE } from '@/constants'
+import Assets from '@/Assets'
 const ProductCard = ({ item }) => {
   const [isHover, setIsHover] = useState(false)
   const router = useRouter()
@@ -30,13 +31,13 @@ const ProductCard = ({ item }) => {
         <Col span={24}>
           <Row>
             <Col span={24} className={style.prodImageWrapper}>
-              {item?.images?.length && (
-                <Image
-                  fill
-                  className={style.prodImage}
-                  src={item?.images[0]?.webImage}
-                />
-              )}
+              {/* {item?.images?.length ? ( */}
+              <Image
+                fill
+                className={style.prodImage}
+                src={item?.images[0]?.webImage || Assets.ShoeImage1}
+              />
+              {/* )} */}
               <div className={style.iconDiv}>
                 <HeartOutlined className={style.icon} />
                 <ShoppingCartOutlined className={style.icon} />
@@ -49,12 +50,12 @@ const ProductCard = ({ item }) => {
               <div class={`${style.priceBox} ${style.a}`}>
                 <span className={style.newPrice}>
                   <span class="money" data-currency-usd="$50.00">
-                    ${item?.price}
+                    ${item?.price || '0'}
                   </span>
                 </span>
                 <span className={style.oldPrice}>
                   <span class="money" data-currency-usd="$70.00">
-                    ${item?.discountedPrice}
+                    ${item?.discountedPrice || '0'}
                   </span>
                 </span>
               </div>

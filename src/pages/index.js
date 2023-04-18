@@ -46,7 +46,6 @@ export default function Home(props) {
 
   console.log({ categories })
   useEffect(() => {
-    console.log('MainState : ', MainState)
   }, [MainState])
 
   const handleSelectedCategory = (id) => {
