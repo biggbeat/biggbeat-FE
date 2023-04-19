@@ -1,12 +1,21 @@
 // export const BASE_URL = 'https://restcountries.com/v3.1'
 export const BASE_URL = 'https://biggbeat.onrender.com'
 export const BRAND_NAME = 'BiggBeats'
-
+export const DUMMY_IMAGE =
+  'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png'
 export const ACCESS_TYPES = { PUBLIC: 'PUBLIC', PRIVATE: 'PRIVATE' }
 
 ////////////////////public routes
 
 export const SINGLE_CATEGORY_ROUTE = '/shoes-men'
+export const ALL_CATEGORY_PAGE_ROUTE = {
+  title: 'Categories',
+  url: '/categories',
+}
+export const SINGE_CATEGORY_PAGE_ROUTE = {
+  title: 'Category',
+  url: '/category/:slug',
+}
 
 export const GET_ALL_COUNTRIES_URL = {
   url: '/all',
@@ -141,3 +150,6 @@ export const FILTER_BRAND_OPTIONS = [
   { label: 'Servis', value: 'servis' },
   { label: 'Bata', value: 'bata' },
 ]
+export const BREAD_CRUMBS_PAGES = {
+  SINGLE_CATEGORY_PAGE: [{ label: 'Category', link: null }],
+}

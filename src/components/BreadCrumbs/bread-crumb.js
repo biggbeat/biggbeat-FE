@@ -2,7 +2,7 @@ import { Breadcrumb } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-const Breadcrumbs = () => {
+const Breadcrumbs = ({ crumbs }) => {
   const location = useRouter()
   const { asPath } = location
   const pathname = asPath?.split('/').filter((item) => item)
@@ -10,11 +10,10 @@ const Breadcrumbs = () => {
   console.log({ location })
   return (
     <Breadcrumb separator=">">
-      {pathname?.length > 0 ? (
-        <Breadcrumb.Item>Home</Breadcrumb.Item>
-      ) : (
-        <Breadcrumb.Item>Home</Breadcrumb.Item>
-      )}
+      <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+      {crumbs?.map((item) => (
+        <Breadcrumb.Item>{item.label}</Breadcrumb.Item>
+      ))}
     </Breadcrumb>
   )
 }

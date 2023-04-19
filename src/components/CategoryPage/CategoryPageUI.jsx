@@ -1,9 +1,11 @@
 import {
+  BREAD_CRUMBS_PAGES,
   CATEGORY_SORT_OPTIONS,
   FOUR_ITEMS_ROW,
+  FULL_ROW,
   THREE_ITEM_ROWS_2,
 } from '@/constants'
-import { Button, Col, Popover, Row, Select, Slider } from 'antd'
+import { Badge, Button, Col, Popover, Row, Select, Slider } from 'antd'
 import Breadcrumbs from '../BreadCrumbs/bread-crumb'
 import ProductCard from '../product-card/product-card'
 import styles from './styles.module.scss'
@@ -39,11 +41,13 @@ const CategoryPageUI = ({
       </div>
     )
   }
+
+  console.log({ products })
   return (
     <div className={styles.categoryPageUI}>
       <Row gutter={[16, 24]} className={styles.categoryRow} justify="center">
         <Col span={24}>
-          <Breadcrumbs />
+          <Breadcrumbs crumbs={BREAD_CRUMBS_PAGES.SINGLE_CATEGORY_PAGE} />
         </Col>
 
         <Col span={24}>
@@ -83,11 +87,17 @@ const CategoryPageUI = ({
         </Col>
       </Row>
       <Row gutter={[16, 24]} className={styles.categoryRow}>
-        {products?.map((item, index) => (
-          <Col {...FOUR_ITEMS_ROW}>
-            <ProductCard item={item} />
+        {!products?.length ? (
+          <Col {...FULL_ROW}>
+            <h4 className={styles.categorytitle}>No Products found</h4>
           </Col>
-        ))}
+        ) : (
+          products?.map((item, index) => (
+            <Col {...FOUR_ITEMS_ROW}>
+              <ProductCard item={item} />
+            </Col>
+          ))
+        )}
       </Row>
     </div>
   )
