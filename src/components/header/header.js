@@ -9,7 +9,10 @@ import { useState } from 'react'
 import { ConfirmationModal, LoginModal, SideBar } from '@/components'
 import style from './styles.module.scss'
 import { Popover } from 'antd'
+import { useRouter } from 'next/router'
+import { LOGIN_PAGE_ROUTE, SIGNUP_PAGE_ROUTE } from '@/constants'
 const Header = () => {
+  const router = useRouter()
   const [open, setopen] = useState(false)
 
   const [openLogin, setopenLogin] = useState(false)
@@ -25,16 +28,26 @@ const Header = () => {
   const handlePopoverContent = () => {
     return (
       <div className={style.popoverContent}>
-        <div>
+        <div
+          onClick={() => {
+            handleRoute(SIGNUP_PAGE_ROUTE.url)
+          }}
+        >
           <b>Sign Up</b>
         </div>
-        <div>
+        <div
+          onClick={() => {
+            handleRoute(LOGIN_PAGE_ROUTE.url)
+          }}
+        >
           <b>Login</b>
         </div>
       </div>
     )
   }
-
+  const handleRoute = (url) => {
+    router.push(url)
+  }
   return (
     <>
       <header className={style.mainHeader}>

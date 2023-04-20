@@ -16,6 +16,15 @@ export const SINGE_CATEGORY_PAGE_ROUTE = {
   title: 'Category',
   url: '/category/:slug',
 }
+export const LOGIN_PAGE_ROUTE = {
+  title: 'Login',
+  url: '/login',
+}
+
+export const SIGNUP_PAGE_ROUTE = {
+  title: 'SignUp',
+  url: '/signup',
+}
 
 export const GET_ALL_COUNTRIES_URL = {
   url: '/all',
