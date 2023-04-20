@@ -9,14 +9,12 @@ const CategoryCardUI = ({ image, title, handleClick }) => {
       hoverable
       onClick={handleClick}
       cover={
-        // <span className={styles.coverImageWrapper}>
         <Image
           preview={false}
           alt="example"
           height={300}
           src={image || DUMMY_IMAGE}
         />
-        // </span>
       }
     >
       <Card.Meta title={title} />

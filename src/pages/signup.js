@@ -1,10 +1,8 @@
 import Head from 'next/head'
-import styles from '@/styles/Login.module.scss'
 import { BRAND_NAME } from '@/constants'
-import { Col, Row } from 'antd'
-import LoginPageUI from '@/components/LoginPage/LoginPageUI'
+import SignUpPageUI from '@/components/SignUpPage/SignUpPageUI'
 
-export default function Login() {
+export default function SignUp() {
   return (
     <>
       <Head>
@@ -14,7 +12,7 @@ export default function Login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="page_wrapper_withoutmargin">
-        <LoginPageUI />
+        <SignUpPageUI />
       </div>
     </>
   )

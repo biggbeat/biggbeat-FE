@@ -44,9 +44,8 @@ export default function Home(props) {
   const categories = props?.categories.data?.data
   const categoriesProducts = props?.categoriesProducts.data?.data
 
-  console.log({ categories })
-  useEffect(() => {
-  }, [MainState])
+  console.log({ props })
+  useEffect(() => {}, [MainState])
 
   const handleSelectedCategory = (id) => {
     setselectedcategory(id)
@@ -67,15 +66,17 @@ export default function Home(props) {
           selectedcategory={selectedcategory}
           handleSelectedCategory={handleSelectedCategory}
         />
-        <CategorySelectionSection
-          selectedcategory={selectedcategory}
-          products={
-            selectedcategory
-              ? categoriesProducts?.find((dt) => dt?._id == selectedcategory)
-                  ?.products
-              : categoriesProducts[0]?.products || []
-          }
-        />
+        {categoriesProducts?.length > 0 && (
+          <CategorySelectionSection
+            selectedcategory={selectedcategory}
+            products={
+              selectedcategory
+                ? categoriesProducts?.find((dt) => dt?._id == selectedcategory)
+                    ?.products
+                : categoriesProducts[0]?.products || []
+            }
+          />
+        )}
       </div>
     </>
   )

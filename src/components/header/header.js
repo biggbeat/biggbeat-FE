@@ -8,6 +8,7 @@ import {
 import { useState } from 'react'
 import { ConfirmationModal, LoginModal, SideBar } from '@/components'
 import style from './styles.module.scss'
+import { Popover } from 'antd'
 const Header = () => {
   const [open, setopen] = useState(false)
 
@@ -19,6 +20,19 @@ const Header = () => {
 
   const handleLogin = () => {
     setopenLogin(!openLogin)
+  }
+
+  const handlePopoverContent = () => {
+    return (
+      <div className={style.popoverContent}>
+        <div>
+          <b>Sign Up</b>
+        </div>
+        <div>
+          <b>Login</b>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -34,7 +48,14 @@ const Header = () => {
             </span>
             <span className={style.navIconLinks}>
               <SearchOutlined className={style.navIcon} />
-              <UserOutlined className={style.navIcon} onClick={handleLogin} />
+              <Popover
+                content={handlePopoverContent}
+                trigger="click"
+                open={openLogin}
+                onOpenChange={handleLogin}
+              >
+                <UserOutlined className={style.navIcon} onClick={handleLogin} />
+              </Popover>
               <HeartOutlined className={style.navIcon} />
               <ShoppingCartOutlined className={style.navIcon} />
               <MenuOutlined
@@ -47,7 +68,7 @@ const Header = () => {
       </header>
       <SideBar open={open} handleClose={handleClose} />
 
-      <LoginModal handleCancel={handleLogin} open={openLogin} />
+      {/* <LoginModal handleCancel={handleLogin} open={openLogin} /> */}
     </>
   )
 }

@@ -91,3 +91,14 @@ $bgRed: $background-red;
         }
     }
 }
+.popoverContent {
+    width: 150px;
+    :hover {
+        color: $bgRed;
+    }
+    div {
+        padding: 3px 3px;
+        margin-bottom: 3px;
+        cursor: pointer;
+    }
+}
