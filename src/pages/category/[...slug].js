@@ -9,9 +9,6 @@ import { CATEGORY_SORT_OPTIONS_VALUE } from '@/constants'
 const Category = (props) => {
   const router = useRouter()
 
-  useEffect(() => {
-    console.log('query : ', props)
-  }, [])
   const [popoverOpen, setpopoverOpen] = useState(false)
   const [openFilterDrawer, setopenFilterDrawer] = useState(false)
   const [rangeFilter, setrangeFilter] = useState([1000, 10000])
@@ -36,8 +33,6 @@ const Category = (props) => {
     setbrandFilter(val)
   }
 
-  console.log({ openFilterDrawer })
-
   let categoryProducts = [
     ...(props?.categoryProducts?.data?.data[0]?.products ?? []),
   ]
@@ -45,7 +40,6 @@ const Category = (props) => {
   const categoryDetails = {
     ...(props?.categoryProducts?.data?.data[0] ?? {}),
   }
-  console.log({ categoryProducts })
 
   //filteringBysort
   categoryProducts = categoryProducts?.sort((a, b) =>

@@ -1,11 +1,18 @@
-import { THREE_ITEM_ROWS, BRAND_NAME, validateMsgRequired } from '@/constants'
+import {
+  THREE_ITEM_ROWS,
+  BRAND_NAME,
+  validateMsgRequired,
+  FULL_ROW,
+  HALF_ROW_FULL_WIDTH_FROM_MD,
+  THREE_ITEM_ROWS_2,
+} from '@/constants'
 import { Button, Col, Form, Input, Row } from 'antd'
 import styles from './styles.module.scss'
-const SignUpPageUI = ({ form }) => {
+const SignUpPageUI = ({ form, handleSubmit, loading }) => {
   return (
     <div className={styles.SignUpPageUI}>
       <Row justify={'center'} className={styles.rowwrapper}>
-        <Col {...THREE_ITEM_ROWS}>
+        <Col {...THREE_ITEM_ROWS_2}>
           <div className={styles.loginFieldsWrapper}>
             <h4 className={styles.brandtitle}>{BRAND_NAME}</h4>
             {/* <Form
@@ -72,12 +79,13 @@ const SignUpPageUI = ({ form }) => {
             </Form> */}
             <Form
               name="Login"
-              // onFinish={onFinish}
+              form={form}
+              onFinish={handleSubmit}
               // onFinishFailed={onFinishFailed}
               autoComplete="off"
             >
-              <Row>
-                <Col span={24}>
+              <Row gutter={[6, 6]}>
+                <Col {...HALF_ROW_FULL_WIDTH_FROM_MD}>
                   <Form.Item
                     name="first_name"
                     rules={[
@@ -90,7 +98,7 @@ const SignUpPageUI = ({ form }) => {
                     <Input placeholder="First name" size="large" />
                   </Form.Item>
                 </Col>
-                <Col span={24}>
+                <Col {...HALF_ROW_FULL_WIDTH_FROM_MD}>
                   <Form.Item
                     name="last_name"
                     rules={[
@@ -103,7 +111,8 @@ const SignUpPageUI = ({ form }) => {
                     <Input placeholder="Last name" size="large" />
                   </Form.Item>
                 </Col>
-                <Col span={24}>
+
+                <Col {...FULL_ROW}>
                   <Form.Item
                     name="email"
                     rules={[
@@ -116,7 +125,33 @@ const SignUpPageUI = ({ form }) => {
                     <Input placeholder="Email" size="large" />
                   </Form.Item>
                 </Col>
-                <Col span={24}>
+                <Col {...FULL_ROW}>
+                  <Form.Item
+                    name="address"
+                    rules={[
+                      {
+                        required: true,
+                        message: validateMsgRequired('Address'),
+                      },
+                    ]}
+                  >
+                    <Input placeholder="Address" size="large" />
+                  </Form.Item>
+                </Col>
+                <Col {...FULL_ROW}>
+                  <Form.Item
+                    name="country"
+                    rules={[
+                      {
+                        required: true,
+                        message: validateMsgRequired('Country'),
+                      },
+                    ]}
+                  >
+                    <Input placeholder="Country" size="large" />
+                  </Form.Item>
+                </Col>
+                <Col {...FULL_ROW}>
                   <Form.Item
                     name="password"
                     rules={[
@@ -136,7 +171,13 @@ const SignUpPageUI = ({ form }) => {
                 </Col>
 
                 <Col span={24}>
-                  <Button block size="large" type="primary" htmlType="submit">
+                  <Button
+                    block
+                    loading={loading}
+                    size="large"
+                    type="primary"
+                    htmlType="submit"
+                  >
                     Register
                   </Button>
                 </Col>

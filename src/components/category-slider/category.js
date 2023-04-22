@@ -1,4 +1,5 @@
 import Assets from '@/Assets'
+import { ALL_CATEGORY_PAGE_ROUTE } from '@/constants'
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
 import { Button, Col, Row, Typography } from 'antd'
 import Image from 'next/image'
@@ -48,6 +49,7 @@ const CategorySectionSlider = ({
   categories,
   handleSelectedCategory,
   selectedcategory,
+  handleRoute,
 }) => {
   return (
     <div className={`page_wrapper ${style.categorySliderWrapper}`}>
@@ -65,6 +67,7 @@ const CategorySectionSlider = ({
           <span className={style.viewBtnWrapper}>
             <Button
               type="primary"
+              onClick={() => handleRoute(ALL_CATEGORY_PAGE_ROUTE.url)}
               className={`${style.redBg} ${style.textWhite}`}
             >
               View all

@@ -8,10 +8,10 @@ import {
 import { useState } from 'react'
 import { ConfirmationModal, LoginModal, SideBar } from '@/components'
 import style from './styles.module.scss'
-import { Popover } from 'antd'
+import { Avatar, Popover } from 'antd'
 import { useRouter } from 'next/router'
 import { LOGIN_PAGE_ROUTE, SIGNUP_PAGE_ROUTE } from '@/constants'
-const Header = () => {
+const Header = ({ user = null }) => {
   const router = useRouter()
   const [open, setopen] = useState(false)
 
@@ -45,6 +45,23 @@ const Header = () => {
       </div>
     )
   }
+
+  const handlePopoverUserContent = () => {
+    return (
+      <div className={style.popoverContent}>
+        <div>
+          <b>Profile</b>
+        </div>
+        <div
+        // onClick={() => {
+        //   handleRoute(LOGIN_PAGE_ROUTE.url)
+        // }}
+        >
+          <b>Logout</b>
+        </div>
+      </div>
+    )
+  }
   const handleRoute = (url) => {
     router.push(url)
   }
@@ -61,14 +78,33 @@ const Header = () => {
             </span>
             <span className={style.navIconLinks}>
               <SearchOutlined className={style.navIcon} />
-              <Popover
-                content={handlePopoverContent}
-                trigger="click"
-                open={openLogin}
-                onOpenChange={handleLogin}
-              >
-                <UserOutlined className={style.navIcon} onClick={handleLogin} />
-              </Popover>
+              {user ? (
+                <Popover
+                  content={handlePopoverUserContent}
+                  trigger="click"
+                  open={openLogin}
+                  onOpenChange={handleLogin}
+                  className={style.avataricon}
+                >
+                  <Avatar
+                    icon={<UserOutlined />}
+                    shape="circle"
+                    size={'small'}
+                  />
+                </Popover>
+              ) : (
+                <Popover
+                  content={handlePopoverContent}
+                  trigger="click"
+                  open={openLogin}
+                  onOpenChange={handleLogin}
+                >
+                  <UserOutlined
+                    className={style.navIcon}
+                    onClick={handleLogin}
+                  />
+                </Popover>
+              )}
               <HeartOutlined className={style.navIcon} />
               <ShoppingCartOutlined className={style.navIcon} />
               <MenuOutlined
@@ -79,9 +115,7 @@ const Header = () => {
           </span>
         </div>
       </header>
-      <SideBar open={open} handleClose={handleClose} />
-
-      {/* <LoginModal handleCancel={handleLogin} open={openLogin} /> */}
+      <SideBar open={open} handleClose={handleClose} user={user} />
     </>
   )
 }

@@ -1,9 +1,38 @@
+import { notification } from 'antd'
+import { useContext } from 'react'
+import { MainContext } from './context/MainContext'
+
 // export const BASE_URL = 'https://restcountries.com/v3.1'
 export const BASE_URL = 'https://biggbeat.onrender.com'
 export const BRAND_NAME = 'BiggBeats'
 export const DUMMY_IMAGE =
   'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png'
-export const ACCESS_TYPES = { PUBLIC: 'PUBLIC', PRIVATE: 'PRIVATE' }
+export const ACCESS_TYPES = {
+  PUBLIC: 'PUBLIC',
+  PRIVATE: 'PRIVATE',
+  AUTH: 'auth',
+}
+
+export const SUCCESS_STATUS = '0000'
+export const ERROR_USER_NOT_VERIFIED = '0001'
+export const SUCCESS_MESSAGE_TYPE = 'success'
+export const ERROR_MESSAGE_TYPE = 'error'
+
+export const SET_USER_DATA_WHITE_LIST = (data) => {
+  localStorage.setItem(BRAND_NAME, JSON.stringify(data))
+}
+
+export const GET_USER_DATA_WHITE_LIST = () => {
+  return JSON.parse(localStorage.getItem(BRAND_NAME))
+}
+
+export const toastMessage = (type, message) => {
+  notification.open({
+    type: type,
+    message: SUCCESS_MESSAGE_TYPE === type ? 'Success' : 'Error',
+    description: message,
+  })
+}
 
 ////////////////////public routes
 
@@ -25,9 +54,32 @@ export const SIGNUP_PAGE_ROUTE = {
   title: 'SignUp',
   url: '/signup',
 }
+export const OTP_PAGE_ROUTE = {
+  title: 'Verify Otp',
+  url: '/otp',
+}
 
 export const GET_ALL_COUNTRIES_URL = {
   url: '/all',
+  accesstoken: false,
+  headers: false,
+}
+
+// users apis
+export const SIGN_UP_URL = {
+  url: '/user/signup',
+  accesstoken: false,
+  headers: false,
+}
+
+export const LOGIN_URL = {
+  url: '/user/signin',
+  accesstoken: false,
+  headers: false,
+}
+
+export const VERIFY_OTP_URL = {
+  url: '/user/verify',
   accesstoken: false,
   headers: false,
 }
@@ -68,6 +120,14 @@ export const GET_ALL_CATEGORY_PRODUCTS_URL = {
 //validations
 export const validateMsgRequired = (label) => {
   return `${label} is required`
+}
+
+export const validateMaxLengthMessage = (label) => {
+  return `Maximum ${label} characters are accepted`
+}
+
+export const validateMinLengthMessage = (label) => {
+  return `Minimum ${label} characters are accepted`
 }
 
 // row col props
@@ -132,6 +192,14 @@ export const HALF_ROW_FULL_WIDTH_XS = {
   xs: { span: 24 },
   sm: { span: 12 },
   md: { span: 12 },
+  lg: { span: 12 },
+  xl: { span: 12 },
+}
+
+export const HALF_ROW_FULL_WIDTH_FROM_MD = {
+  xs: { span: 24 },
+  sm: { span: 24 },
+  md: { span: 24 },
   lg: { span: 12 },
   xl: { span: 12 },
 }

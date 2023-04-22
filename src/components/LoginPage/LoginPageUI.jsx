@@ -1,7 +1,12 @@
-import { THREE_ITEM_ROWS, BRAND_NAME, validateMsgRequired } from '@/constants'
+import {
+  THREE_ITEM_ROWS,
+  BRAND_NAME,
+  validateMsgRequired,
+  SIGNUP_PAGE_ROUTE,
+} from '@/constants'
 import { Button, Col, Form, Input, Row } from 'antd'
 import styles from './styles.module.scss'
-const LoginPageUI = ({ form }) => {
+const LoginPageUI = ({ handleRoute, loading, form, handleSubmit }) => {
   return (
     <div className={styles.LoginPageUI}>
       <Row justify={'center'} className={styles.rowwrapper}>
@@ -11,7 +16,7 @@ const LoginPageUI = ({ form }) => {
             <Form
               name="Login"
               form={form}
-              // onFinish={onFinish}
+              onFinish={handleSubmit}
               // onFinishFailed={onFinishFailed}
               autoComplete="off"
             >
@@ -51,7 +56,13 @@ const LoginPageUI = ({ form }) => {
                   <h6 className={styles.forgotText}>Forgot your Password?</h6>
                 </Col>
                 <Col span={24}>
-                  <Button block size="large" type="primary" htmlType="submit">
+                  <Button
+                    block
+                    size="large"
+                    type="primary"
+                    htmlType="submit"
+                    loading={loading}
+                  >
                     Login
                   </Button>
                 </Col>
@@ -61,8 +72,7 @@ const LoginPageUI = ({ form }) => {
                     <Button
                       size="middle"
                       type="link"
-                      htmlType="submit"
-                      //   onClick={handleOpenRegister}
+                      onClick={() => handleRoute(SIGNUP_PAGE_ROUTE.url)}
                     >
                       Register now!
                     </Button>

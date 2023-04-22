@@ -1,10 +1,52 @@
 import Head from 'next/head'
 import styles from '@/styles/Login.module.scss'
-import { BRAND_NAME } from '@/constants'
-import { Col, Row } from 'antd'
+import {
+  BRAND_NAME,
+  ERROR_USER_NOT_VERIFIED,
+  SUCCESS_MESSAGE_TYPE,
+  toastMessage,
+  OTP_PAGE_ROUTE,
+  ACCESS_TYPES,
+} from '@/constants'
+import { Col, Form, Row } from 'antd'
 import LoginPageUI from '@/components/LoginPage/LoginPageUI'
+import { useRouter } from 'next/router'
+import { useContext, useState } from 'react'
+import { loginRequest } from '@/actions/user'
+import { MainContext } from '@/context/MainContext'
+import { SET_USER_DATA } from '@/context/action-types'
 
 export default function Login() {
+  const [form] = Form.useForm()
+  const router = useRouter()
+  const { MainState, dispatch } = useContext(MainContext)
+
+  const [loading, setloading] = useState(false)
+
+  const handleSubmit = async (values) => {
+    setloading(true)
+    const payload = {
+      ...values,
+    }
+    const loginResp = await loginRequest(payload)
+    setloading(false)
+    if (loginResp?.success) {
+      dispatch({ type: SET_USER_DATA, user: loginResp?.data?.data })
+      toastMessage(SUCCESS_MESSAGE_TYPE, loginResp.message)
+      router.replace('/')
+    } else if (loginResp?.data?.status === ERROR_USER_NOT_VERIFIED) {
+      router.push(
+        { pathname: OTP_PAGE_ROUTE.url, query: { email: payload?.email } },
+        OTP_PAGE_ROUTE.url
+      )
+      console.log({ loginResp })
+    }
+  }
+  const handleRoute = (url) => {
+    router.push(url)
+  }
+
+  console.log({ MainState })
   return (
     <>
       <Head>
@@ -14,8 +56,20 @@ export default function Login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="page_wrapper_withoutmargin">
-        <LoginPageUI />
+        <LoginPageUI
+          handleRoute={handleRoute}
+          loading={loading}
+          form={form}
+          handleSubmit={handleSubmit}
+        />
       </div>
     </>
   )
+}
+export async function getStaticProps(context) {
+  return {
+    props: {
+      accessType: ACCESS_TYPES.AUTH,
+    },
+  }
 }

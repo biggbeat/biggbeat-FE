@@ -5,7 +5,6 @@ import { useState } from 'react'
 const CategoriesPage = (props) => {
   const [searchCategory, setsearchCategory] = useState('')
   let categories = props?.categories?.data?.data || []
-  console.log({ categories })
 
   const handleSearch = (val) => {
     setsearchCategory(val)

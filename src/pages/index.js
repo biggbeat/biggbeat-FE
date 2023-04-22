@@ -17,11 +17,7 @@ import {
 } from '@/components'
 import dataHandler from '@/services/data-handler'
 import { Suspense, useContext, useEffect, useState } from 'react'
-import {
-  getCountriesRequest,
-  userLoginRequest,
-  userLogOutRequest,
-} from '@/store/slicers/user'
+
 import { MainContext } from '@/context/MainContext'
 import { getCall } from '@/services/services'
 import { getAllCategoriesProductsRequest, getBannerRequest } from '@/actions'
@@ -30,11 +26,13 @@ import {
   getSectionsRequest,
 } from '@/actions/generalActions'
 import Loading from './loading'
+import { useRouter } from 'next/router'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home(props) {
   const { MainState, dispatch } = useContext(MainContext)
+  const router = useRouter()
   const [selectedcategory, setselectedcategory] = useState(null)
   // const state = useSelector((state) => state)
   // const dispatch = useDispatch()
@@ -44,13 +42,15 @@ export default function Home(props) {
   const categories = props?.categories.data?.data
   const categoriesProducts = props?.categoriesProducts.data?.data
 
-  console.log({ props })
-  useEffect(() => {}, [MainState])
+  // useEffect(() => {}, [MainState])
 
   const handleSelectedCategory = (id) => {
     setselectedcategory(id)
   }
 
+  const handleRoute = (url) => {
+    router.push(url)
+  }
   return (
     <>
       <Head>
@@ -65,6 +65,7 @@ export default function Home(props) {
           categories={categoriesProducts || []}
           selectedcategory={selectedcategory}
           handleSelectedCategory={handleSelectedCategory}
+          handleRoute={handleRoute}
         />
         {categoriesProducts?.length > 0 && (
           <CategorySelectionSection

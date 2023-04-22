@@ -1,7 +1,5 @@
 /* eslint-disable */
 import { BASE_URL } from '@/constants'
-import { userLogOutRequest } from '@/store/slicers/user'
-import { store } from '@/store/store'
 import axios from 'axios'
 import dataHandler from './data-handler'
 

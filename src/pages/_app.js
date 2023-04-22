@@ -2,17 +2,15 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import { store, persistor, wrapper } from '@/store/store'
 import '@/styles/globals.css'
 import { ConfigProvider, Spin } from 'antd'
-import { Provider } from 'react-redux'
 import variables from '@/styles/variables.module.scss'
-import { AuthSharedLayout } from '@/layouts'
+import { AuthSharedLayout, PublicSharedLayout } from '@/layouts'
 import { useEffect, useState } from 'react'
 import dataHandler from '@/services/data-handler'
-import { PersistGate } from 'redux-persist/integration/react'
 import { Jost } from '@next/font/google'
 import MainProvider from '@/context/MainContext'
+import { ACCESS_TYPES } from '@/constants'
 const jost = Jost({ subsets: ['latin'] })
 function App({ Component, pageProps }) {
   const [loading, setLoading] = useState(() => true)
@@ -43,20 +41,22 @@ function App({ Component, pageProps }) {
           colorLinkActive: variables.secondaryText,
           colorLinkHover: variables.secondaryText,
           colorPrimaryHover: variables.secondaryText,
-          colorTextPlaceholder: variables.placeholderColor,
+          // colorTextPlaceholder: variables.placeholderColor,
           // colorPrimaryBg: variables.s,
           // bgRed: variables.bgRed,
         },
       }}
     >
       <MainProvider>
-        {/* <Provider store={store}> */}
-        {/* <PersistGate persistor={persistor} loading={null}> */}
-        <AuthSharedLayout>
-          <Component {...pageProps} />
-        </AuthSharedLayout>
-        {/* </PersistGate> */}
-        {/* </Provider> */}
+        {pageProps?.accessType === ACCESS_TYPES.AUTH ? (
+          <AuthSharedLayout>
+            <Component {...pageProps} />
+          </AuthSharedLayout>
+        ) : (
+          <PublicSharedLayout>
+            <Component {...pageProps} />
+          </PublicSharedLayout>
+        )}
       </MainProvider>
     </ConfigProvider>
   )

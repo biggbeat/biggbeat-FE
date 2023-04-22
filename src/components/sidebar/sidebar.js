@@ -4,14 +4,15 @@ import {
   ShopOutlined,
   ShoppingCartOutlined,
   UserAddOutlined,
+  UserDeleteOutlined,
   UserOutlined,
 } from '@ant-design/icons'
-import { Badge, Button, Col, Drawer, Row } from 'antd'
+import { Avatar, Badge, Button, Col, Drawer, Row } from 'antd'
 import style from './styles.module.scss'
 import { Jost } from '@next/font/google'
 import variables from '@/styles/variables.module.scss'
 const jost = Jost({ subsets: ['latin'] })
-const SideBar = ({ open, handleClose }) => {
+const SideBar = ({ open, handleClose, user }) => {
   return (
     <Drawer
       bodyStyle={{ padding: '10px 5px 5px 5px' }}
@@ -21,17 +22,6 @@ const SideBar = ({ open, handleClose }) => {
         border: '0px',
       }}
       closeIcon={<CloseCircleFilled style={{ color: variables.primaryText }} />}
-      // width={
-      //   window.innerWidth > 1200
-      //     ? 800
-      //     : window.innerWidth > 500
-      //     ? 300
-      //     : window.innerWidth > 300
-      //     ? 250
-      //     : window.innerWidth > 200
-      //     ? 200
-      //     : 'auto'
-      // }
       placement="left"
       onClose={handleClose}
       className={`${style.customBody} ${jost.className}`}
@@ -43,20 +33,39 @@ const SideBar = ({ open, handleClose }) => {
           { sm: 16, xs: 4 },
         ]}
       >
-        <Col span={12}>
-          <Button
-            className={style.btnCss}
-            type="primary"
-            icon={<ShoppingCartOutlined />}
-          >
-            Cart
-          </Button>
-        </Col>
-        <Col span={12}>
-          <Button className={style.btnCss} icon={<UserOutlined />}>
-            Login
-          </Button>
-        </Col>
+        {user ? (
+          <>
+            <Col span={12}>
+              <Avatar icon={<UserOutlined />} />
+            </Col>
+            <Col span={24}>
+              <Button
+                className={style.btnCss}
+                type="primary"
+                icon={<ShoppingCartOutlined />}
+              >
+                Cart
+              </Button>
+            </Col>
+          </>
+        ) : (
+          <>
+            <Col span={12}>
+              <Button
+                className={style.btnCss}
+                type="primary"
+                icon={<ShoppingCartOutlined />}
+              >
+                Cart
+              </Button>
+            </Col>
+            <Col span={12}>
+              <Button className={style.btnCss} icon={<UserOutlined />}>
+                Login
+              </Button>
+            </Col>
+          </>
+        )}
         <Col span={24}>
           <Button className={style.btnCss} icon={<HomeOutlined />}>
             Home
@@ -70,10 +79,17 @@ const SideBar = ({ open, handleClose }) => {
         <Col span={24}>
           <Button className={style.btnCss}>Featured</Button>
         </Col>
+
         <Col span={24}>
-          <Button className={style.btnCss} icon={<UserAddOutlined />}>
-            Register
-          </Button>
+          {user ? (
+            <Button className={style.btnCss} icon={<UserDeleteOutlined />}>
+              Logout
+            </Button>
+          ) : (
+            <Button className={style.btnCss} icon={<UserAddOutlined />}>
+              Register
+            </Button>
+          )}
         </Col>
       </Row>
     </Drawer>
