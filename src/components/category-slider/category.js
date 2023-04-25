@@ -7,14 +7,48 @@ import style from './styles.module.scss'
 
 const settings = {
   dots: false,
-  infinite: true,
+  infinite: false,
   speed: 500,
   slidesToShow: 4,
   slidesToScroll: 1,
   nextArrow: <NextArrow />,
   prevArrow: <PrevArrow />,
+  responsive: [
+    {
+      breakpoint: 1400,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 1200,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 991,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 550,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+  ],
 }
-const CategorySectionSlider = () => {
+const CategorySectionSlider = ({
+  categories,
+  handleSelectedCategory,
+  selectedcategory,
+}) => {
   return (
     <div className={`page_wrapper ${style.categorySliderWrapper}`}>
       <Row gutter={[16, 16]} justify="space-between">
@@ -42,54 +76,19 @@ const CategorySectionSlider = () => {
       <Row gutter={[16, 16]}>
         <Col span={24}>
           <Slider {...settings} autoplay className={style.selectCategorySlider}>
-            <div className={style.imageSliderWrapper}>
-              <Image
-                fill
-                className={style.categoryImage}
-                src={Assets.ShoeImage1}
-              />
-              <h4>Leather Shoes</h4>
-            </div>
-            <div className={style.imageSliderWrapper}>
-              <Image
-                fill
-                className={style.categoryImage}
-                src={Assets.ShoeImage2}
-              />
-              <h4>Sports Shoes</h4>
-            </div>
-            <div className={style.imageSliderWrapper}>
-              <Image
-                fill
-                className={style.categoryImage}
-                src={Assets.ShoeImage3}
-              />
-              <h4>Sneakers</h4>
-            </div>
-            <div className={style.imageSliderWrapper}>
-              <Image
-                fill
-                className={style.categoryImage}
-                src={Assets.ShoeImage4}
-              />
-              <h4>Sandals</h4>
-            </div>
-            <div className={style.imageSliderWrapper}>
-              <Image
-                fill
-                className={style.categoryImage}
-                src={Assets.ShoeImage1}
-              />
-              <h4>Kids</h4>
-            </div>
-            <div className={style.imageSliderWrapper}>
-              <Image
-                fill
-                className={style.categoryImage}
-                src={Assets.ShoeImage2}
-              />
-              <h4>Women sandals</h4>
-            </div>
+            {categories?.map((item, indx) => (
+              <div
+                className={style.imageSliderWrapper}
+                onClick={() => handleSelectedCategory(item?._id)}
+              >
+                <Image
+                  fill
+                  className={style.categoryImage}
+                  src={Assets.ShoeImage1}
+                />
+                <h4>{item?.categoryTitle}</h4>
+              </div>
+            ))}
           </Slider>
         </Col>
       </Row>

@@ -9,6 +9,7 @@ $textWhite: $text-white;
 
     .selectCategorySlider {
         display: flex;
+        flex: 1 !important;
         align-items: center;
     }
     .categoryImage {

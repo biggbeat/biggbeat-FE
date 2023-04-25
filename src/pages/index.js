@@ -16,7 +16,7 @@ import {
   ProductSection,
 } from '@/components'
 import dataHandler from '@/services/data-handler'
-import { useContext, useEffect } from 'react'
+import { Suspense, useContext, useEffect, useState } from 'react'
 import {
   getCountriesRequest,
   userLoginRequest,
@@ -24,21 +24,34 @@ import {
 } from '@/store/slicers/user'
 import { MainContext } from '@/context/MainContext'
 import { getCall } from '@/services/services'
-import { getBannerRequest } from '@/actions'
-import { getSectionsRequest } from '@/actions/generalActions'
+import { getAllCategoriesProductsRequest, getBannerRequest } from '@/actions'
+import {
+  getCategoriesRequest,
+  getSectionsRequest,
+} from '@/actions/generalActions'
+import Loading from './loading'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home(props) {
   const { MainState, dispatch } = useContext(MainContext)
+  const [selectedcategory, setselectedcategory] = useState(null)
   // const state = useSelector((state) => state)
   // const dispatch = useDispatch()
   // console.log({ state }, dataHandler.store.getState().user.user.jwt)
   const banners = props?.banners.data?.data
   const sections = props?.banners.data?.data
+  const categories = props?.categories.data?.data
+  const categoriesProducts = props?.categoriesProducts.data?.data
 
+  console.log({ categories })
   useEffect(() => {
   }, [MainState])
+
+  const handleSelectedCategory = (id) => {
+    setselectedcategory(id)
+  }
+
   return (
     <>
       <Head>
@@ -49,9 +62,20 @@ export default function Home(props) {
       </Head>
       <div className={styles.page_wrapper}>
         <HeroSection banners={banners || []} />
-        <CategorySectionSlider />
-        <CategorySelectionSection />
-        <ProductSection sections={sections || []} />
+        <CategorySectionSlider
+          categories={categoriesProducts || []}
+          selectedcategory={selectedcategory}
+          handleSelectedCategory={handleSelectedCategory}
+        />
+        <CategorySelectionSection
+          selectedcategory={selectedcategory}
+          products={
+            selectedcategory
+              ? categoriesProducts?.find((dt) => dt?._id == selectedcategory)
+                  ?.products
+              : categoriesProducts[0]?.products || []
+          }
+        />
       </div>
     </>
   )
@@ -60,11 +84,15 @@ export default function Home(props) {
 export async function getServerSideProps() {
   const banners = await getBannerRequest()
   const sections = await getSectionsRequest()
-
+  const categories = await getCategoriesRequest()
+  const categoriesProducts = await getAllCategoriesProductsRequest()
+  console.log({ categories })
   // Pass data to the page via props
   return {
     props: {
       banners,
+      categories,
+      categoriesProducts,
       sections,
       accessType: ACCESS_TYPES.PUBLIC,
     },

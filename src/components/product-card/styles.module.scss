@@ -1,4 +1,4 @@
-@import '../../styles/variables.module.scss';
+@import "../../styles/variables.module.scss";
 $background-secondary: $background-color-secondary;
 $bgRed: $background-red;
 
@@ -7,10 +7,10 @@ $bgRed: $background-red;
 }
 
 .bgRed {
-  background-color : $bgRed
+  background-color: $bgRed;
 }
 .textWhite {
- color: white;
+  color: white;
 }
 
 .productCardWrapper {
@@ -22,8 +22,8 @@ $bgRed: $background-red;
     .hide {
       display: block;
     }
-    .iconDiv{
-        visibility: visible;
+    .iconDiv {
+      visibility: visible;
     }
   }
 
@@ -48,6 +48,9 @@ $bgRed: $background-red;
     margin: 10px auto;
     .icon {
       font-size: 150% !important;
+      :hover {
+        color: $bgRed;
+      }
     }
   }
 
@@ -67,7 +70,7 @@ $bgRed: $background-red;
       color: #69686c;
 
       .newPrice {
-        color:$bgRed;
+        color: $bgRed;
         font-size: 15px;
         font-weight: 700;
       }

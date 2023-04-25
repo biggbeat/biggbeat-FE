@@ -28,8 +28,10 @@
 }
 
 .reviewBox {
+  text-align: left;
+  // float: left;
   font-weight: 500;
-  margin: auto 2px;
+  margin: auto 10px;
   font-size: 14px;
 }
 
@@ -191,4 +193,252 @@
     padding: 0 15px;
     cursor: pointer;
   }
+}
+
+.shipContainer {
+  display: flex;
+  justify-content: start;
+  margin-top: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-top: 2px solid #eee;
+  // border-bottom: 2px solid #eee;
+  .shipImg {
+    margin-right: 10px;
+    height: 100% !important;
+    padding-top: 20px;
+  }
+  .shipDetail {
+    // display: inline-block;
+    h5 {
+      font-size: 16px;
+      color: #000;
+      font-weight: 600;
+    }
+    div {
+      color: grey;
+      font-size: 14px;
+      font-weight: 400;
+    }
+  }
+}
+
+.descContainer {
+  margin-top: 10px;
+  .heading {
+    font-size: 14px;
+    color: #000;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .description {
+    .head {
+      color: #666;
+      font-size: 12px;
+      line-height: 1.7;
+      letter-spacing: 0.4px;
+    }
+  }
+}
+
+.ratingContainer {
+  .heading {
+    font-size: 18px;
+    font-weight: 500;
+    color: #000;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 15px 0;
+  }
+
+  .review {
+    display: flex;
+    justify-content: flex-start;
+    line-height: 1;
+    position: relative;
+    bottom: 20%;
+
+    padding-left: 40px;
+    border-left: 2px solid #eee;
+    .left {
+      font-size: 12px;
+      padding-top: 2px;
+      text {
+        padding-top: 5px !important;
+        padding-right: 5px !important;
+      }
+    }
+    .center {
+      margin: 2px 10px;
+      width: 150px;
+      height: 4px;
+      margin-left: 10px;
+      // progress {
+      //   background-color: rgb(75, 232, 75) !important;
+      //   border: none;
+      //   width: 150px;
+      //   height: 4px;
+      //   // background: #f5f5f6;
+      //   border-radius: unset;
+      // }
+    }
+    .right {
+      font-size: 12px;
+      padding-top: 7px;
+    }
+  }
+
+  .rate {
+    h1 {
+      font-size: 36px;
+      font-weight: 400;
+      color: #000;
+      margin: 0;
+      text-transform: uppercase;
+    }
+    p {
+      line-height: 1.7;
+      letter-spacing: 0.4px;
+      font-size: 14px !important;
+      font-weight: 400 !important;
+      color: #000 !important;
+      margin: 0;
+      padding-top: 15px;
+    }
+  }
+}
+
+.starIcon {
+  font-size: 15px;
+  color: grey;
+}
+.mainRatingIcon {
+  font-size: 20px;
+  color: grey;
+  position: relative;
+  bottom: 7px;
+}
+
+.star {
+  font-size: 20px;
+}
+
+.reviewContainer {
+  h1 {
+    font-size: 18px;
+    font-weight: 500;
+    color: #000;
+    letter-spacing: normal;
+    text-transform: capitalize;
+    margin: 20px 0 0;
+  }
+
+  .reviewRapper {
+    display: flex;
+    margin: 10px auto;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+
+    .reviewStar {
+      background: #04aa6d;
+      padding: 5px;
+      height: 15px;
+      margin-right: 10px;
+      margin-top: 3px;
+      display: flex;
+
+      // width: 30px;
+      // height: 20px;
+      // background-color: green;
+      // font-size: 10px;
+
+      p {
+        position: relative;
+        bottom: 7px;
+        font-size: 10px;
+        color: #fff;
+        margin: 0;
+        line-height: 1.7;
+        letter-spacing: 0.4px;
+      }
+      div {
+        position: relative;
+        bottom: 7px;
+        font-size: 10px;
+      }
+    }
+
+    .customerSaid {
+      p {
+        font-size: 14px;
+        color: #000;
+        margin: 0;
+        font-weight: 300;
+        line-height: 1.7;
+        letter-spacing: 0.4px;
+      }
+      div {
+        font-size: 12px;
+        color: #999;
+        font-weight: 300;
+      }
+    }
+  }
+
+  .viewAll {
+    line-height: 23px;
+    color: #2d2d2d;
+    p {
+      font-size: 14px !important;
+      font-weight: 500;
+      color: #f44336 !important;
+      line-height: normal !important;
+      text-align: left;
+      padding: 15px 0;
+      margin: 0;
+      cursor: pointer;
+    }
+  }
+
+  // .reviewBtnBox {
+  //   margin-top: 20px;
+  //   text-align: center;
+  //   button {
+  //     border: 1px solid #000;
+  //     outline: none;
+  //     padding: 15px;
+  //     color: #000;
+  //     background: #fff;
+  //     font-size: 16px;
+  //     font-weight: 500;
+  //     text-transform: uppercase;
+  //     width: 70%;
+
+  //     text {
+  //       padding-left: 5px;
+  //     }
+
+  //   }
+  // }
+
+  .reviewBtnBox {
+    width: 100%;
+
+    .addReviewTextArea {
+      display: inline-block;
+      width: 95%;
+    }
+
+    .reviewIcon {
+      display: inline-block;
+      position: relative;
+      top: 15px;
+      left: 10px;
+      font-size: 20px;
+    }
+  }
+}
+
+.addReview {
+  height: 100px !important;
 }

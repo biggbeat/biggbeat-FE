@@ -18,11 +18,11 @@ function App({ Component, pageProps }) {
   const [loading, setLoading] = useState(() => true)
 
   useEffect(() => {
-    // if (store) {
-    //   console.log({ store })
-    //   dataHandler.setStore(store)
-    // }
-    // setLoading(false)
+    if (store) {
+      console.log({ store })
+      dataHandler.setStore(store)
+    }
+    setLoading(false)
   }, [])
 
   console.log({ pageProps, Component })
@@ -35,6 +35,8 @@ function App({ Component, pageProps }) {
     <ConfigProvider
       theme={{
         token: {
+          colorIcon: variables.primaryText,
+          colorIconHover: variables.secondaryText,
           fontFamily: `Jost`,
           colorPrimary: variables.primaryText,
           colorLink: variables.primaryText,

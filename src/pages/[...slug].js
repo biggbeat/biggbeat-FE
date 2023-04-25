@@ -4,11 +4,21 @@ import { getSlug } from '@/services/commosService'
 import SliderImage from 'react-zoom-slider'
 import { Button, Col, Row } from 'antd'
 import styles from '@/styles/Product.module.scss'
-import { Breadcrumb } from 'antd'
+import { Breadcrumb, Rate, Progress, Input, Tooltip } from 'antd'
+const { TextArea } = Input
 import StarRatings from 'react-star-ratings'
 import Assets from '@/Assets'
 import Image from 'next/image'
 import Link from 'next/link'
+import {
+  StarOutlined,
+  InfoCircleOutlined,
+  UserOutlined,
+  SendOutlined,
+} from '@ant-design/icons'
+import { Collapse } from 'antd'
+const { Panel } = Collapse
+// import "../Assets/images/product/delivery-time.svg"
 
 const Category = (props) => {
   const router = useRouter()
@@ -56,9 +66,40 @@ const Category = (props) => {
     console.log('query : ', props)
   }, [])
 
+  const rating = {
+    totalCount: 80,
+    data: [
+      {
+        rate: 5,
+        count: 70,
+      },
+      {
+        rate: 4,
+        count: 5,
+      },
+      {
+        rate: 3,
+        count: 3,
+      },
+      {
+        rate: 2,
+        count: 1,
+      },
+      {
+        rate: 1,
+        count: 1,
+      },
+    ],
+  }
+
   const onChangeRating = (rating) => {
     console.log('rating  : ', rating)
   }
+  const onChangeProductPanel = (rating) => {
+    console.log('rating  : ', rating)
+  }
+
+  
 
   return (
     <div className="container">
@@ -86,7 +127,7 @@ const Category = (props) => {
             Miles Women Pink Sports Shoes
           </h1>
           <div className={`${styles.starContainer}`}>
-            <StarRatings
+            {/* <StarRatings
               starDimension="20px"
               starSpacing="2px"
               isSelectable={false}
@@ -95,11 +136,11 @@ const Category = (props) => {
               // changeRating={onChangeRating}
               numberOfStars={6}
               name="rating"
-            />
-          </div>
-          <div className={`${styles.reviewBox} text-black `}>
+            /> */}
+            <Rate disabled defaultValue={5} className={styles.star} />
             <a className={`${styles.reviewBox} text-black`}>5 Reviews</a>
           </div>
+
           <div className={`${styles.priceContainer}`}>
             <del>Rs 2845</del>
             <span className={`${styles.price}`}>1799</span>
@@ -144,16 +185,185 @@ const Category = (props) => {
             <div className={`${styles.checkoutBtnDiv}`}>
               <button className={styles.checkoutBtn}>Add to Bag</button>
             </div>
-            <div class={`${styles.wishlistContainer}`} >
-              <div
-                class="wishlist-container"
-              >
+            <div class={`${styles.wishlistContainer}`}>
+              <div class="wishlist-container">
                 {' '}
                 <span data-v-0508c599="">WISHLIST</span>
               </div>
             </div>
           </div>
+          <div className={`${styles.shipContainer}`}>
+            <div className={styles.shipImg}>
+              <Image src={Assets.DeliveryTime} />
+            </div>
+            <div className={styles.shipDetail}>
+              <h5>Delivery Time:</h5>
+              <div>
+                Lahore, Rawalpindi, Islamabad: 1-2 days
+                <br />
+                Other cities: 1-4 days
+              </div>
+            </div>
+          </div>
+          <div className={styles.descContainer}>
+            <Collapse
+              defaultActiveKey={['1']}
+              onChange={onChangeProductPanel}
+              expandIconPosition={'end'}
+            >
+              <Panel header="PRODUCT DESCRIPTION" key="1">
+                <div className={styles.description}>
+                  <p className={styles.head}>
+                    <strong>Material:</strong> Leather
+                  </p>
+                  <p className={styles.head}>
+                    <strong>Sole:</strong> Molded
+                  </p>
+                </div>
+              </Panel>
+            </Collapse>
+            {/* <div className={styles.heading}>PRODUCT DESCRIPTION</div>
+            <div className={styles.description}>
+              <p className={styles.head}>
+                <strong>Material:</strong> Leather
+              </p>
+              <p className={styles.head}>
+                <strong>Sole:</strong> Molded
+              </p>
+            </div> */}
+          </div>
+          <div className={`${styles.ratingContainer} row`}>
+            <div className="col-12">
+              <h5 className={styles.heading}>Rating</h5>
+            </div>
+            <div className="col-4">
+              <div className={styles.rate}>
+                <h1>
+                  3.0  <Rate
+                        disabled
+                        defaultValue={1}
+                        count={1}
+                        className={styles.mainRatingIcon}
+                      />
+                  
+                  {/* <StarOutlined className={styles.starIcon} /> */}
+                </h1>
+                <p>50 verified customer</p>
+              </div>
+            </div>
+            <div className="col-8">
+              {rating.data.length ? (
+                rating.data.map((m) => (
+                  <div className={styles.review}>
+                    <div className={styles.left}>
+                      <text>{m.rate}</text>
+                      <Rate
+                        disabled
+                        defaultValue={1}
+                        count={1}
+                        className={styles.starIcon}
+                      />
+                    </div>
+                    <div className={styles.center}>
+                      {/* <progress
+                        value={m.count}
+                        max={rating.totalCount}
+                      ></progress> */}
+                      <Progress
+                        strokeColor="green"
+                        s
+                        strokeWidth={5}
+                        size={'small'}
+                        percent={m.count}
+                        showInfo={false}
+                      />
+                    </div>
+                    <div className={styles.right}>{m.count}</div>
+                  </div>
+                ))
+              ) : (
+                <></>
+              )}
+            </div>
+          </div>
+          <div className={styles.reviewContainer}>
+            <h1>Customer Reviews ({rating.totalCount})</h1>
+            <div className={styles.reviewRapper}>
+              <div className={styles.reviewStar}>
+                <p>5</p>
+                <div>
+                  <Rate
+                    style={{ color: '#D5D5DA' }}
+                    disabled
+                    defaultValue={1}
+                    count={1}
+                    className={styles.starIcon}
+                  />
+                </div>
+              </div>
+              <div className={styles.customerSaid}>
+                <p>This is dummy review</p>
+                <div>Hamza | Mar 30,2023 at 2:30:09 PM</div>
+              </div>
+            </div>
+            <div className={styles.reviewRapper}>
+              <div className={styles.reviewStar}>
+                <p>5</p>
+                <div>
+                  <Rate
+                    style={{ color: '#D5D5DA' }}
+                    disabled
+                    defaultValue={1}
+                    count={1}
+                    className={styles.starIcon}
+                  />
+                </div>
+              </div>
+              <div className={styles.customerSaid}>
+                <p>This is dummy review</p>
+                <div>Hamza | Mar 30,2023 at 2:30:09 PM</div>
+              </div>
+            </div>
+            <div className={styles.viewAll}>
+              <Link href={'/review/safasf454asfasf'}>
+                <p>View all {rating.totalCount} reviews</p>
+              </Link>
+            </div>
+            <div className={styles.reviewBtnBox}>
+              {/* <button>
+                <Image src={Assets.FeedbackImage} width={20} height={20} />
+                <text className="pl-2">Add a Review</text>
+              </button> */}
+              <div className={styles.addReviewTextArea}>
+                <TextArea placeholder="Write a review.."  allowClear />
+              </div>
+              <div className={styles.reviewIcon}>
+                <SendOutlined
+                  style={{
+                    color: '#04aa6d',
+                  }}
+                />
+              </div>
+              {/* <Input
+                placeholder="Write your review.."
+                className={styles.addReview}
+                prefix={<UserOutlined className="site-form-item-icon" />}
+                suffix={
+                  <Tooltip title="Extra information">
+                    <SendOutlined
+                      style={{
+                        color: '#04aa6d',
+                      }}
+                    />
+                  </Tooltip>
+                }
+              /> */}
+            </div>
+          </div>
         </div>
+      </div>
+      <div className='row'>
+        <h1>asfasfasfas</h1>
       </div>
     </div>
   )

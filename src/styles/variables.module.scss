@@ -1,15 +1,17 @@
 // light shade
 
 $font-color-primary: #000;
-$font-color-secondary: #ff871d;
+$font-color-secondary: #db2525;
 $placeholder-color: grey;
 $primary-box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 $background-color-primary: #fff;
 $background-color-secondary: #f7f7f7d9;
-$button-color-primary: #ff871d;
+$button-color-primary: #db2525;
 $border-grey-shade1: #d9d9d9;
 $background-red: #db2525;
 $text-white: #fff;
+
+// ff871d
 
 :export {
     placeholderColor: $placeholder-color;
@@ -19,5 +21,5 @@ $text-white: #fff;
     bgPrimary: $background-color-primary;
     bgRed: $background-red;
     boxShadowPrimary: $primary-box-shadow;
-    textWhite : $text-white;
+    textWhite: $text-white;
 }
