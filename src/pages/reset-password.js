@@ -54,7 +54,7 @@ const ResetPassword = (props) => {
 
     if (resetPass?.success) {
       toastMessage(SUCCESS_MESSAGE_TYPE, resetPass?.message)
-      // router.push({pathname:RESET_PASSWORD_PAGE_ROUTE.url},RESET_PASSWORD_PAGE_ROUTE.url)
+      router.replace(LOGIN_PAGE_ROUTE.url)
     }
   }
 
