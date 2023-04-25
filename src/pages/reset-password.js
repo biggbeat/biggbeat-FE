@@ -1,10 +1,13 @@
 import { request } from '@/actions'
-import OTPScreenUI from '@/components/OtpInput/OtpScreenUI'
+import ForgotPasswordUI from '@/components/ForgotPasswordUI/ForgotPasswordUI'
+import ResetPasswordUI from '@/components/Reset-PasswordUI/ResetPasswordUI'
 import {
   ACCESS_TYPES,
   BRAND_NAME,
   LOGIN_PAGE_ROUTE,
+  RESEND_OTP_TO_EMAIL_URL,
   RESET_PASSWORD_PAGE_ROUTE,
+  RESET_PASSWORD_URL,
   SUCCESS_MESSAGE_TYPE,
   toastMessage,
   VERIFY_OTP_URL,
@@ -15,48 +18,46 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
 
-const OTPScreen = (props) => {
+const ResetPassword = (props) => {
   const { MainState, dispatch } = useContext(MainContext)
 
   const [form] = Form.useForm()
   const router = useRouter()
   const email = props?.email
-  const forPage = props?.forPage
+  const otp = props?.otp
 
   const [loading, setloading] = useState(false)
+
+  useEffect(() => {
+    if (!email || !otp) {
+      console.log({ otp })
+      router.replace('/')
+    }
+  }, [])
 
   const handleSubmit = async (values) => {
     setloading(true)
     console.log({ values })
     const payload = {
       ...values,
+      otp,
       email,
     }
-    const verifyOtp = await request({ apiurl: VERIFY_OTP_URL, data: payload })
 
-    console.log({ verifyOtp })
+    delete payload.confirm_password
+    const resetPass = await request({
+      apiurl: RESET_PASSWORD_URL,
+      data: payload,
+    })
+    console.log({ resetPass })
     setloading(false)
 
-    if (verifyOtp?.success) {
-      toastMessage(SUCCESS_MESSAGE_TYPE, verifyOtp?.message)
-      if (RESET_PASSWORD_PAGE_ROUTE.title === forPage) {
-        router.push(
-          {
-            query: { ...payload, email },
-            pathname: RESET_PASSWORD_PAGE_ROUTE.url,
-          },
-          RESET_PASSWORD_PAGE_ROUTE.url
-        )
-      } else {
-        router.push(LOGIN_PAGE_ROUTE.url)
-      }
+    if (resetPass?.success) {
+      toastMessage(SUCCESS_MESSAGE_TYPE, resetPass?.message)
+      // router.push({pathname:RESET_PASSWORD_PAGE_ROUTE.url},RESET_PASSWORD_PAGE_ROUTE.url)
     }
   }
-  useEffect(() => {
-    if (!email) {
-      router.back()
-    }
-  }, [])
+
   console.log({ MainState })
   return (
     <>
@@ -67,7 +68,7 @@ const OTPScreen = (props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="page_wrapper_withoutmargin">
-        <OTPScreenUI
+        <ResetPasswordUI
           loading={loading}
           form={form}
           handleSubmit={handleSubmit}
@@ -76,18 +77,17 @@ const OTPScreen = (props) => {
     </>
   )
 }
-export default OTPScreen
+export default ResetPassword
 
 export async function getServerSideProps(context) {
-  let email = context.query.email
-  let forPage = context.query?.forPage || ''
+  let email = context.query?.email || ''
+  let otp = context.query?.otp || ''
 
-  console.log({ email })
   return {
     props: {
-      forPage,
-      email: email || null,
       accessType: ACCESS_TYPES.AUTH,
+      email,
+      otp,
     },
   }
 }

@@ -57,6 +57,10 @@ export const LOGIN_PAGE_ROUTE = {
   title: 'Login',
   url: '/login',
 }
+export const RESET_PASSWORD_PAGE_ROUTE = {
+  title: 'Reset Password',
+  url: '/reset-password',
+}
 
 export const SIGNUP_PAGE_ROUTE = {
   title: 'SignUp',
@@ -103,6 +107,13 @@ export const VERIFY_OTP_URL = {
 
 export const RESEND_OTP_TO_EMAIL_URL = {
   url: '/user/resend-otp',
+  accesstoken: false,
+  headers: false,
+  requestType: REQUEST_TYPE.post,
+}
+
+export const RESET_PASSWORD_URL = {
+  url: '/user/reset-password',
   accesstoken: false,
   headers: false,
   requestType: REQUEST_TYPE.post,

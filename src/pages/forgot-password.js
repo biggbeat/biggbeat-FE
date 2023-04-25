@@ -4,7 +4,9 @@ import {
   ACCESS_TYPES,
   BRAND_NAME,
   LOGIN_PAGE_ROUTE,
+  OTP_PAGE_ROUTE,
   RESEND_OTP_TO_EMAIL_URL,
+  RESET_PASSWORD_PAGE_ROUTE,
   SUCCESS_MESSAGE_TYPE,
   toastMessage,
   VERIFY_OTP_URL,
@@ -38,7 +40,13 @@ const ForgotPassword = (props) => {
 
     if (verifyOtp?.success) {
       toastMessage(SUCCESS_MESSAGE_TYPE, verifyOtp?.message)
-      //   router.push(LOGIN_PAGE_ROUTE.url)
+      router.push(
+        {
+          query: { ...payload, forPage: RESET_PASSWORD_PAGE_ROUTE.title },
+          pathname: OTP_PAGE_ROUTE.url,
+        },
+        OTP_PAGE_ROUTE.url
+      )
     }
   }
 
