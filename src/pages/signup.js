@@ -1,11 +1,15 @@
 import Head from 'next/head'
-import { ACCESS_TYPES, BRAND_NAME, OTP_PAGE_ROUTE } from '@/constants'
+import {
+  ACCESS_TYPES,
+  BRAND_NAME,
+  OTP_PAGE_ROUTE,
+  SIGN_UP_URL,
+} from '@/constants'
 import SignUpPageUI from '@/components/SignUpPage/SignUpPageUI'
 import { Form } from 'antd'
-import { signUpRequest } from '@/actions/user'
 import { useState } from 'react'
-import { getBannerRequest } from '@/actions'
 import { useRouter } from 'next/router'
+import { request } from '@/actions'
 
 export default function SignUp() {
   const [form] = Form.useForm()
@@ -23,7 +27,10 @@ export default function SignUp() {
     delete payload?.first_name
     delete payload?.last_name
 
-    const signUpUser = await signUpRequest(payload)
+    const signUpUser = await request({
+      apiurl: SIGN_UP_URL,
+      data: payload,
+    })
 
     router.push(
       {

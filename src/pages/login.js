@@ -7,14 +7,15 @@ import {
   toastMessage,
   OTP_PAGE_ROUTE,
   ACCESS_TYPES,
+  LOGIN_URL,
 } from '@/constants'
 import { Col, Form, Row } from 'antd'
 import LoginPageUI from '@/components/LoginPage/LoginPageUI'
 import { useRouter } from 'next/router'
 import { useContext, useState } from 'react'
-import { loginRequest } from '@/actions/user'
 import { MainContext } from '@/context/MainContext'
 import { SET_USER_DATA } from '@/context/action-types'
+import { request } from '@/actions'
 
 export default function Login() {
   const [form] = Form.useForm()
@@ -28,7 +29,7 @@ export default function Login() {
     const payload = {
       ...values,
     }
-    const loginResp = await loginRequest(payload)
+    const loginResp = await request({ apiurl: LOGIN_URL, data: payload })
     setloading(false)
     if (loginResp?.success) {
       dispatch({ type: SET_USER_DATA, user: loginResp?.data?.data })

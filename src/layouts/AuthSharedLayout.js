@@ -12,7 +12,7 @@ export const AuthSharedLayout = ({ children }) => {
   const user = MainState?.user
   useEffect(() => {
     if (user) {
-      router.push('/')
+      // router.push('/')
     }
   }, [user])
   return (

@@ -1,9 +1,10 @@
 import { request } from '@/actions'
-import OTPScreenUI from '@/components/OtpInput/OtpScreenUI'
+import ForgotPasswordUI from '@/components/ForgotPasswordUI/ForgotPasswordUI'
 import {
   ACCESS_TYPES,
   BRAND_NAME,
   LOGIN_PAGE_ROUTE,
+  RESEND_OTP_TO_EMAIL_URL,
   SUCCESS_MESSAGE_TYPE,
   toastMessage,
   VERIFY_OTP_URL,
@@ -14,7 +15,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
 
-const OTPScreen = (props) => {
+const ForgotPassword = (props) => {
   const { MainState, dispatch } = useContext(MainContext)
 
   const [form] = Form.useForm()
@@ -27,23 +28,20 @@ const OTPScreen = (props) => {
     console.log({ values })
     const payload = {
       ...values,
-      email,
     }
-    const verifyOtp = await request({ apiurl: VERIFY_OTP_URL, data: payload })
-
+    const verifyOtp = await request({
+      apiurl: RESEND_OTP_TO_EMAIL_URL,
+      data: payload,
+    })
     console.log({ verifyOtp })
     setloading(false)
 
     if (verifyOtp?.success) {
       toastMessage(SUCCESS_MESSAGE_TYPE, verifyOtp?.message)
-      router.push(LOGIN_PAGE_ROUTE.url)
+      //   router.push(LOGIN_PAGE_ROUTE.url)
     }
   }
-  useEffect(() => {
-    if (!email) {
-      router.back()
-    }
-  }, [])
+
   console.log({ MainState })
   return (
     <>
@@ -54,7 +52,7 @@ const OTPScreen = (props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="page_wrapper_withoutmargin">
-        <OTPScreenUI
+        <ForgotPasswordUI
           loading={loading}
           form={form}
           handleSubmit={handleSubmit}
@@ -63,14 +61,11 @@ const OTPScreen = (props) => {
     </>
   )
 }
-export default OTPScreen
+export default ForgotPassword
 
 export async function getServerSideProps(context) {
-  let email = context.query.email
-  console.log({ email })
   return {
     props: {
-      email: email || null,
       accessType: ACCESS_TYPES.AUTH,
     },
   }

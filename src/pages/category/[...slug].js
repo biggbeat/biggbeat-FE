@@ -3,8 +3,11 @@ import { useRouter } from 'next/router'
 import { getSlug } from '@/services/commosService'
 import CategoryPageUI from '@/components/CategoryPage/CategoryPageUI'
 import FitlerDrawer from '@/components/FilterDrawer'
-import { getProductsByCategoryRequest } from '@/actions/category'
-import { CATEGORY_SORT_OPTIONS_VALUE } from '@/constants'
+import {
+  CATEGORY_SORT_OPTIONS_VALUE,
+  GET_PRODUCTS_BY_CATEGORY_URL,
+} from '@/constants'
+import { request } from '@/actions'
 
 const Category = (props) => {
   const router = useRouter()
@@ -101,13 +104,15 @@ const Category = (props) => {
 export default Category
 
 export async function getServerSideProps(context) {
-  let slug = getSlug(context.query.slug)
-
-  const categoryProducts = await getProductsByCategoryRequest(slug)
+  let categorySlug = getSlug(context.query.slug)
+  const categoryProducts = await request({
+    apiurl: GET_PRODUCTS_BY_CATEGORY_URL,
+    data: { categorySlug },
+  })
 
   return {
     props: {
-      categoryName: slug,
+      categoryName: categorySlug,
       categoryProducts,
     },
   }

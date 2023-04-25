@@ -9,6 +9,7 @@ export default function MainProvider({ children }) {
   const [MainState, dispatch] = useReducer(MainReducer, {
     data: false,
     user: null,
+    cart: [],
   })
 
   useEffect(() => {

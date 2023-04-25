@@ -13,6 +13,14 @@ export const ACCESS_TYPES = {
   AUTH: 'auth',
 }
 
+export const REQUEST_TYPE = {
+  get: 'get',
+  post: 'post',
+  patch: 'patch',
+  put: 'put',
+  delete: 'delete',
+}
+
 export const SUCCESS_STATUS = '0000'
 export const ERROR_USER_NOT_VERIFIED = '0001'
 export const SUCCESS_MESSAGE_TYPE = 'success'
@@ -59,10 +67,16 @@ export const OTP_PAGE_ROUTE = {
   url: '/otp',
 }
 
+export const FORGOT_PASSWORD_PAGE_ROUTE = {
+  title: 'Forgot Password',
+  url: '/forgot-password',
+}
+
 export const GET_ALL_COUNTRIES_URL = {
   url: '/all',
   accesstoken: false,
   headers: false,
+  requestType: REQUEST_TYPE.get,
 }
 
 // users apis
@@ -70,18 +84,28 @@ export const SIGN_UP_URL = {
   url: '/user/signup',
   accesstoken: false,
   headers: false,
+  requestType: REQUEST_TYPE.post,
 }
 
 export const LOGIN_URL = {
   url: '/user/signin',
   accesstoken: false,
   headers: false,
+  requestType: REQUEST_TYPE.post,
 }
 
 export const VERIFY_OTP_URL = {
   url: '/user/verify',
   accesstoken: false,
   headers: false,
+  requestType: REQUEST_TYPE.post,
+}
+
+export const RESEND_OTP_TO_EMAIL_URL = {
+  url: '/user/resend-otp',
+  accesstoken: false,
+  headers: false,
+  requestType: REQUEST_TYPE.post,
 }
 
 //banner apis
@@ -89,12 +113,14 @@ export const GET_HOME_BANNER_URL = {
   url: '/banner/get-banner',
   accesstoken: false,
   headers: false,
+  requestType: REQUEST_TYPE.get,
 }
 //sections apis
 export const GET_SECTIONS_URL = {
   url: '/section/get-section',
   accesstoken: false,
   headers: false,
+  requestType: REQUEST_TYPE.get,
 }
 
 //category apis
@@ -102,12 +128,14 @@ export const GET_CATEGORY_URL = {
   url: '/category/get-category',
   accesstoken: false,
   headers: false,
+  requestType: REQUEST_TYPE.get,
 }
 
 export const GET_PRODUCTS_BY_CATEGORY_URL = {
   url: '/category/get-by-slug',
   accesstoken: false,
   headers: false,
+  requestType: REQUEST_TYPE.post,
 }
 
 //ALL category PRODS apis
@@ -115,6 +143,7 @@ export const GET_ALL_CATEGORY_PRODUCTS_URL = {
   url: '/category/get-category-products',
   accesstoken: false,
   headers: false,
+  requestType: REQUEST_TYPE.get,
 }
 
 //validations
@@ -128,6 +157,10 @@ export const validateMaxLengthMessage = (label) => {
 
 export const validateMinLengthMessage = (label) => {
   return `Minimum ${label} characters are accepted`
+}
+
+export const validateNotValidMessage = (label) => {
+  return `${label} is not valid`
 }
 
 // row col props

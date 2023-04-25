@@ -7,6 +7,9 @@ import {
   BRAND_NAME,
   GET_HOME_BANNER_URL,
   BASE_URL,
+  GET_SECTIONS_URL,
+  GET_CATEGORY_URL,
+  GET_ALL_CATEGORY_PRODUCTS_URL,
 } from '@/constants'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -20,11 +23,8 @@ import { Suspense, useContext, useEffect, useState } from 'react'
 
 import { MainContext } from '@/context/MainContext'
 import { getCall } from '@/services/services'
-import { getAllCategoriesProductsRequest, getBannerRequest } from '@/actions'
-import {
-  getCategoriesRequest,
-  getSectionsRequest,
-} from '@/actions/generalActions'
+import { request } from '@/actions'
+
 import Loading from './loading'
 import { useRouter } from 'next/router'
 
@@ -84,11 +84,12 @@ export default function Home(props) {
 }
 
 export async function getServerSideProps() {
-  const banners = await getBannerRequest()
-  const sections = await getSectionsRequest()
-  const categories = await getCategoriesRequest()
-  const categoriesProducts = await getAllCategoriesProductsRequest()
-  console.log({ categories })
+  const banners = await request({ apiurl: GET_HOME_BANNER_URL })
+  const sections = await request({ apiurl: GET_SECTIONS_URL })
+  const categories = await request({ apiurl: GET_CATEGORY_URL })
+  const categoriesProducts = await request({
+    apiurl: GET_ALL_CATEGORY_PRODUCTS_URL,
+  })
   // Pass data to the page via props
   return {
     props: {

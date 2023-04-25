@@ -5,13 +5,17 @@ import {
   ShoppingCartOutlined,
   UserOutlined,
 } from '@ant-design/icons'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { ConfirmationModal, LoginModal, SideBar } from '@/components'
 import style from './styles.module.scss'
 import { Avatar, Popover } from 'antd'
 import { useRouter } from 'next/router'
 import { LOGIN_PAGE_ROUTE, SIGNUP_PAGE_ROUTE } from '@/constants'
+import { MainContext } from '@/context/MainContext'
+import { LOGOUT_USER } from '@/context/action-types'
 const Header = ({ user = null }) => {
+  const { MainState, dispatch } = useContext(MainContext)
+
   const router = useRouter()
   const [open, setopen] = useState(false)
 
@@ -31,6 +35,7 @@ const Header = ({ user = null }) => {
         <div
           onClick={() => {
             handleRoute(SIGNUP_PAGE_ROUTE.url)
+            handleLogin()
           }}
         >
           <b>Sign Up</b>
@@ -38,6 +43,7 @@ const Header = ({ user = null }) => {
         <div
           onClick={() => {
             handleRoute(LOGIN_PAGE_ROUTE.url)
+            handleLogin()
           }}
         >
           <b>Login</b>
@@ -53,9 +59,10 @@ const Header = ({ user = null }) => {
           <b>Profile</b>
         </div>
         <div
-        // onClick={() => {
-        //   handleRoute(LOGIN_PAGE_ROUTE.url)
-        // }}
+          onClick={() => {
+            handleLogout()
+            handleLogin()
+          }}
         >
           <b>Logout</b>
         </div>
@@ -65,6 +72,10 @@ const Header = ({ user = null }) => {
   const handleRoute = (url) => {
     router.push(url)
   }
+  const handleLogout = () => {
+    dispatch({ type: LOGOUT_USER })
+    handleRoute('/')
+  }
   return (
     <>
       <header className={style.mainHeader}>
@@ -72,7 +83,12 @@ const Header = ({ user = null }) => {
           <span className={style.brand}>BiggBeats</span>
           <span className={style.navlinks}>
             <span className={style.navTextLinks}>
-              <span className={style.linkstext}>HOME </span>
+              <span
+                className={style.linkstext}
+                onClick={() => handleRoute('/')}
+              >
+                HOME{' '}
+              </span>
               <span className={style.linkstext}>SHOP</span>
               <span className={style.linkstext}>FEATURED</span>
             </span>
@@ -115,7 +131,13 @@ const Header = ({ user = null }) => {
           </span>
         </div>
       </header>
-      <SideBar open={open} handleClose={handleClose} user={user} />
+      <SideBar
+        handleRoute={handleRoute}
+        open={open}
+        handleClose={handleClose}
+        user={user}
+        handleLogout={handleLogout}
+      />
     </>
   )
 }

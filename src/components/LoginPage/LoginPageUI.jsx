@@ -3,6 +3,7 @@ import {
   BRAND_NAME,
   validateMsgRequired,
   SIGNUP_PAGE_ROUTE,
+  FORGOT_PASSWORD_PAGE_ROUTE,
 } from '@/constants'
 import { Button, Col, Form, Input, Row } from 'antd'
 import styles from './styles.module.scss'
@@ -53,7 +54,14 @@ const LoginPageUI = ({ handleRoute, loading, form, handleSubmit }) => {
                   </Form.Item>
                 </Col>
                 <Col span={24}>
-                  <h6 className={styles.forgotText}>Forgot your Password?</h6>
+                  <h6
+                    className={styles.forgotText}
+                    onClick={() => {
+                      handleRoute(FORGOT_PASSWORD_PAGE_ROUTE.url)
+                    }}
+                  >
+                    Forgot your Password?
+                  </h6>
                 </Col>
                 <Col span={24}>
                   <Button
