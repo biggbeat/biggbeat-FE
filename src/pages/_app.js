@@ -16,18 +16,23 @@ import LoadingPage from '@/components/loading/loading'
 // import LoadingPage from '@/components/loading'
 const jost = Jost({ subsets: ['latin'] })
 function App({ Component, pageProps }) {
-  const [loading, setLoading] = useState(() => true)
+  const [loading, setLoading] = useState(() => false)
 
   useEffect(() => {
     Router.events.on('routeChangeStart', (url) => {
+      console.log({ url })
+
       setLoading(true)
     })
 
     Router.events.on('routeChangeComplete', (url) => {
+      console.log({ url })
       setLoading(false)
     })
 
     Router.events.on('routeChangeError', (url) => {
+      console.log({ url })
+
       setLoading(false)
     })
   }, [Router])
