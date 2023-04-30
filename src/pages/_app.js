@@ -12,7 +12,8 @@ import { Jost } from '@next/font/google'
 import MainProvider from '@/context/MainContext'
 import { ACCESS_TYPES } from '@/constants'
 import { Router } from 'next/router'
-import Loading from './loading'
+import LoadingPage from '@/components/loading/loading'
+// import LoadingPage from '@/components/loading'
 const jost = Jost({ subsets: ['latin'] })
 function App({ Component, pageProps }) {
   const [loading, setLoading] = useState(() => true)
@@ -32,7 +33,7 @@ function App({ Component, pageProps }) {
   }, [Router])
 
   return loading ? (
-    <Loading />
+    <LoadingPage />
   ) : (
     <ConfigProvider
       theme={{

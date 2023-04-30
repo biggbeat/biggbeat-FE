@@ -1,8 +1,6 @@
 import Assets from '@/Assets'
-import Loading from '@/pages/loading'
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
 import { Button, Col, Row, Spin, Typography } from 'antd'
-import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import Slider from 'react-slick'
 import Loader from '../loader'

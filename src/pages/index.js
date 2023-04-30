@@ -11,21 +11,17 @@ import {
   GET_CATEGORY_URL,
   GET_ALL_CATEGORY_PRODUCTS_URL,
 } from '@/constants'
-import { useDispatch, useSelector } from 'react-redux'
 import {
   CategorySectionSlider,
   HeroSection,
   CategorySelectionSection,
   ProductSection,
 } from '@/components'
-import dataHandler from '@/services/data-handler'
-import { Suspense, useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 
 import { MainContext } from '@/context/MainContext'
 import { getCall } from '@/services/services'
 import { request } from '@/actions'
-
-import Loading from './loading'
 import { useRouter } from 'next/router'
 
 const inter = Inter({ subsets: ['latin'] })

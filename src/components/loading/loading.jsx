@@ -1,7 +1,6 @@
 import { Spin } from 'antd'
-import variables from '../styles/variables.module.scss'
 
-export default function Loading() {
+export default function LoadingPage() {
   return (
     <div className="loader-wrapper">
       <Spin size="large" />
