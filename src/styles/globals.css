@@ -167,6 +167,9 @@ main {
   background: #db2525;
   transition: width 0.3s;
 }
+.ant-spin .ant-spin-dot-item{ background-color: #db2525 !important; }
+
+
 .text-animate:hover::after {
   width: 100%;
 }

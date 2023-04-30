@@ -11,24 +11,28 @@ import dataHandler from '@/services/data-handler'
 import { Jost } from '@next/font/google'
 import MainProvider from '@/context/MainContext'
 import { ACCESS_TYPES } from '@/constants'
+import { Router } from 'next/router'
+import Loading from './loading'
 const jost = Jost({ subsets: ['latin'] })
 function App({ Component, pageProps }) {
   const [loading, setLoading] = useState(() => true)
 
   useEffect(() => {
-    // if (store) {
-    //   console.log({ store })
-    //   dataHandler.setStore(store)
-    // }
-    setLoading(false)
-  }, [])
+    Router.events.on('routeChangeStart', (url) => {
+      setLoading(true)
+    })
 
-  console.log({ pageProps, Component })
+    Router.events.on('routeChangeComplete', (url) => {
+      setLoading(false)
+    })
+
+    Router.events.on('routeChangeError', (url) => {
+      setLoading(false)
+    })
+  }, [Router])
 
   return loading ? (
-    <div className="loader-wrapper">
-      <Spin />
-    </div>
+    <Loading />
   ) : (
     <ConfigProvider
       theme={{
