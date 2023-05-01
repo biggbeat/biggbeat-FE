@@ -3,9 +3,11 @@ import { MainContext } from '@/context/MainContext'
 import { Jost } from '@next/font/google'
 import { useRouter } from 'next/router'
 import { useContext, useEffect } from 'react'
+import LoadingPage from '@/components/loading/loading'
 import style from './styles.module.scss'
+
 const jost = Jost({ subsets: ['latin'] })
-export const AuthSharedLayout = ({ children }) => {
+export const AuthSharedLayout = ({ children, loading }) => {
   const { MainState, dispatch } = useContext(MainContext)
   const router = useRouter()
 
@@ -18,8 +20,14 @@ export const AuthSharedLayout = ({ children }) => {
   return (
     <div className={`${jost.className} ${style.bgBody} wrapper`}>
       <Header />
-      <main>{children}</main>
-      <footer>I'm a 30px tall footer</footer>
+      {!loading ? (
+        <LoadingPage />
+      ) : (
+        <>
+          <main>{children}</main>
+          <footer>I'm a 30px tall footer</footer>
+        </>
+      )}
     </div>
   )
 }

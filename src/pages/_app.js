@@ -37,9 +37,7 @@ function App({ Component, pageProps }) {
     })
   }, [Router])
 
-  return loading ? (
-    <LoadingPage />
-  ) : (
+  return (
     <ConfigProvider
       theme={{
         token: {
@@ -59,11 +57,11 @@ function App({ Component, pageProps }) {
     >
       <MainProvider>
         {pageProps?.accessType === ACCESS_TYPES.AUTH ? (
-          <AuthSharedLayout>
+          <AuthSharedLayout loading={loading}>
             <Component {...pageProps} />
           </AuthSharedLayout>
         ) : (
-          <PublicSharedLayout>
+          <PublicSharedLayout loading={loading}>
             <Component {...pageProps} />
           </PublicSharedLayout>
         )}
