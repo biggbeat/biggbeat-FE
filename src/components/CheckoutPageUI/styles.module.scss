@@ -1,0 +1,51 @@
+@import "../../styles/variables.module.scss";
+$background-secondary: $background-color-secondary;
+$bgRed: $background-red;
+$textWhite: $text-white;
+$label-color: $label-color;
+.checkPageWrapper {
+    .address {
+        margin-top: 15px;
+        padding: 15px;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        border-radius: 8px;
+        .form_row {
+            margin-top: 20px;
+        }
+        label {
+            // color: $label-color;
+            font-size: 15px;
+            margin: 0 0 6px 5px;
+        }
+
+        .options {
+            padding: 15px;
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            justify-content: space-between;
+
+            div {
+                display: flex;
+                align-items: center;
+                h6 {
+                    margin: 0;
+                    margin-left: 10px;
+                }
+            }
+        }
+        .optionsWithBorder {
+            box-shadow: rgba(219, 37, 37, 0.6) 0px 2px 8px 0px;
+
+            border-radius: 5px;
+            // border: 1px solid $bgRed;
+        }
+        .options::after {
+            content: none;
+        }
+        .radioButtonWrapper {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}

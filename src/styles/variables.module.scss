@@ -10,10 +10,12 @@ $button-color-primary: #db2525;
 $border-grey-shade1: #d9d9d9;
 $background-red: #db2525;
 $text-white: #fff;
+$label-color: #999;
 
 // ff871d
 
 :export {
+    labelColor: $label-color;
     placeholderColor: $placeholder-color;
     borderShade1: $border-grey-shade1;
     primaryText: $font-color-primary;

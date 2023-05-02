@@ -20,7 +20,7 @@ export const AuthSharedLayout = ({ children, loading }) => {
   return (
     <div className={`${jost.className} ${style.bgBody} wrapper`}>
       <Header />
-      {!loading ? (
+      {loading ? (
         <LoadingPage />
       ) : (
         <>
