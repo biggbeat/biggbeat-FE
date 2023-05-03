@@ -41,6 +41,7 @@ function App({ Component, pageProps }) {
     <ConfigProvider
       theme={{
         // hashed: false,
+
         token: {
           colorIcon: variables.primaryText,
           colorIconHover: variables.secondaryText,

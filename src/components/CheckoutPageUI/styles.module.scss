@@ -5,7 +5,7 @@ $textWhite: $text-white;
 $label-color: $label-color;
 .checkPageWrapper {
     .address {
-        margin-top: 15px;
+        margin-bottom: 15px;
         padding: 15px;
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
         border-radius: 8px;
@@ -46,6 +46,47 @@ $label-color: $label-color;
         .radioButtonWrapper {
             display: flex;
             flex-direction: column;
+        }
+        .apply_btn {
+            color: $bgRed;
+            border-color: $bgRed;
+        }
+        .applyText_wrapper {
+            display: flex;
+            align-items: center;
+            h5 {
+                margin: 0 0 0 10px;
+            }
+        }
+        .price_wrapper {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            @media (max-width: 407px) {
+                justify-content: center;
+            }
+            h5,
+            h6,
+            span {
+                margin: 0 5px 0 0;
+            }
+            h5 {
+                font-weight: bold;
+            }
+            span {
+                color: $bgRed;
+            }
+            .quantity_input {
+                margin-right: 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100px;
+            }
+            .delete_btn_wrapper {
+                display: flex;
+                align-items: center;
+            }
         }
     }
 }
