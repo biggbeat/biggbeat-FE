@@ -22,10 +22,12 @@ const ProductCard = ({ item }) => {
     router.push(url)
   }
 
+  console.log({ item })
+
   return (
     <div
       className={style.productCardWrapper}
-      onClick={() => handleRoute(SINGLE_CATEGORY_ROUTE)}
+      onClick={() => handleRoute(`/${item?.slug}`)}
     >
       <Row gutter={[24, 5]} justify="space-between">
         <Col span={24}>
@@ -68,7 +70,7 @@ const ProductCard = ({ item }) => {
             type="ghost"
             className={`${style.bgRed} ${style.textWhite}`}
           >
-            Add to Cart
+            View
           </Button>
         </Col>
       </Row>

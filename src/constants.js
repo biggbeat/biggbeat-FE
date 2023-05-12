@@ -157,6 +157,15 @@ export const GET_ALL_CATEGORY_PRODUCTS_URL = {
   requestType: REQUEST_TYPE.get,
 }
 
+//product apis
+
+export const GET_PRODUCT_BY_SLUG = {
+  url: '/product/get-product-by-slug',
+  accesstoken: false,
+  headers: false,
+  requestType: REQUEST_TYPE.post,
+}
+
 //validations
 export const validateMsgRequired = (label) => {
   return `${label} is required`
