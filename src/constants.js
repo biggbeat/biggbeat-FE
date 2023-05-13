@@ -7,6 +7,9 @@ export const BASE_URL = 'https://biggbeat.onrender.com'
 export const BRAND_NAME = 'BiggBeats'
 export const DUMMY_IMAGE =
   'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png'
+
+export const FALLBACK_IMAGE =
+  'https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png'
 export const ACCESS_TYPES = {
   PUBLIC: 'PUBLIC',
   PRIVATE: 'PRIVATE',

@@ -12,7 +12,7 @@ import {
 import { Col, Form, Row } from 'antd'
 import LoginPageUI from '@/components/LoginPage/LoginPageUI'
 import { useRouter } from 'next/router'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { MainContext } from '@/context/MainContext'
 import { SET_USER_DATA } from '@/context/action-types'
 import { request } from '@/actions'
@@ -23,6 +23,10 @@ export default function Login() {
   const { MainState, dispatch } = useContext(MainContext)
 
   const [loading, setloading] = useState(false)
+
+  useEffect(() => {
+    toastMessage(SUCCESS_MESSAGE_TYPE, 'hello')
+  }, [])
 
   const handleSubmit = async (values) => {
     setloading(true)

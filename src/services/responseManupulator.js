@@ -11,13 +11,14 @@ export const manupulateResponse = (response) => {
     message: '',
     data: null,
   }
-  if (response.data.status !== SUCCESS_STATUS) {
+  console.log({ response })
+  if (response.data?.status !== SUCCESS_STATUS) {
     sendresp.success = false
-    sendresp.data = response.data
-    sendresp.message = response.data.message || ''
-    toastMessage(ERROR_MESSAGE_TYPE, response.data.message)
+    sendresp.data = response?.data
+    sendresp.message = response?.data?.message || ''
+    toastMessage(ERROR_MESSAGE_TYPE, response?.data?.message || '')
     return sendresp
-  } else if (response.status === 200) {
+  } else if (response?.status === 200) {
     sendresp.success = true
     sendresp.data = response.data
     sendresp.message = response.data.message || ''

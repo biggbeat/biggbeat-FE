@@ -12,6 +12,8 @@ import Link from 'next/link'
 import Head from 'next/head'
 import {
   BRAND_NAME,
+  FALLBACK_IMAGE,
+  FULL_ROW,
   GET_HOME_BANNER_URL,
   GET_PRODUCT_BY_SLUG,
 } from '@/constants'
@@ -97,14 +99,48 @@ const Category = (props) => {
           </div>
         </div>
         <div className="row">
-          <div className="col-12 col-lg-7" style={{ height: '100px' }}>
-            <SliderImage
+          <div className="col-12 col-lg-7">
+            {/* <SliderImage
               data={data}
               // width="500px"
 
               showDescription={true}
               direction="right"
-            />
+            /> */}{' '}
+            <Row justify={'center'}>
+              <Col>
+                <div className={styles.prodImageWrapper}>
+                  <Image
+                    className={styles.prodImage}
+                    height={'100%'}
+                    src={data[0]?.image}
+                    fallback={FALLBACK_IMAGE}
+                  />
+                </div>
+              </Col>
+              <Col {...FULL_ROW}>
+                <Image.PreviewGroup
+                  preview={{
+                    onChange: (current, prev) =>
+                      console.log(
+                        `current index: ${current}, prev index: ${prev}`
+                      ),
+                  }}
+                >
+                  <div>
+                    {[...data, ...data]?.map((images) => (
+                      <span>
+                        <Image
+                          width={50}
+                          src={images?.image}
+                          fallback={FALLBACK_IMAGE}
+                        />
+                      </span>
+                    ))}
+                  </div>
+                </Image.PreviewGroup>
+              </Col>
+            </Row>
           </div>
           <div className="col-12 col-lg-5">
             <h2 className={`${styles.productTitle} mb-2`}>
@@ -176,8 +212,8 @@ const Category = (props) => {
               <div className={`${styles.checkoutBtnDiv}`}>
                 <button className={styles.checkoutBtn}>Add to Bag</button>
               </div>
-              <div class={`${styles.wishlistContainer}`}>
-                <div class="wishlist-container">
+              <div className={`${styles.wishlistContainer}`}>
+                <div className="wishlist-container">
                   {' '}
                   <span data-v-0508c599="">WISHLIST</span>
                 </div>
