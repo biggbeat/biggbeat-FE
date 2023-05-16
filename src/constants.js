@@ -26,6 +26,8 @@ export const REQUEST_TYPE = {
 
 export const SUCCESS_STATUS = '0000'
 export const ERROR_USER_NOT_VERIFIED = '0001'
+export const ERROR_STATUS = '9999'
+
 export const SUCCESS_MESSAGE_TYPE = 'success'
 export const ERROR_MESSAGE_TYPE = 'error'
 
@@ -77,6 +79,11 @@ export const OTP_PAGE_ROUTE = {
 export const FORGOT_PASSWORD_PAGE_ROUTE = {
   title: 'Forgot Password',
   url: '/forgot-password',
+}
+
+export const SINGLE_PRODUCT_PAGE_ROUTE = {
+  title: 'Product',
+  url: '/:slug',
 }
 
 export const GET_ALL_COUNTRIES_URL = {

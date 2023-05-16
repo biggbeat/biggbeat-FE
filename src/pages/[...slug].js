@@ -16,6 +16,7 @@ import {
   FULL_ROW,
   GET_HOME_BANNER_URL,
   GET_PRODUCT_BY_SLUG,
+  SINGLE_PRODUCT_PAGE_ROUTE,
 } from '@/constants'
 import { Breadcrumbs } from '@/components'
 import { request } from '@/actions'
@@ -81,6 +82,11 @@ const Category = (props) => {
   const product = {
     ...(props?.product ?? {}),
   }
+
+  const handleRoute = (url) => {
+    router.push(url)
+  }
+
   return (
     <>
       <Head>
@@ -202,7 +208,19 @@ const Category = (props) => {
                   </p>
                   <div>
                     {item?.childAttribute?.map((childItem) => (
-                      <p className={`${styles.sizes}`}>{childItem?.title}</p>
+                      <p
+                        className={`${styles.sizes}`}
+                        onClick={() =>
+                          handleRoute(
+                            SINGLE_PRODUCT_PAGE_ROUTE.url.replace(
+                              ':slug',
+                              childItem?.productSlug
+                            )
+                          )
+                        }
+                      >
+                        {childItem?.title}
+                      </p>
                     ))}
                   </div>
                 </>

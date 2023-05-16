@@ -4,6 +4,7 @@ import {
   ACCESS_TYPES,
   BRAND_NAME,
   LOGIN_PAGE_ROUTE,
+  RESEND_OTP_TO_EMAIL_URL,
   RESET_PASSWORD_PAGE_ROUTE,
   SUCCESS_MESSAGE_TYPE,
   toastMessage,
@@ -13,10 +14,16 @@ import { MainContext } from '@/context/MainContext'
 import { Form } from 'antd'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 
 const OTPScreen = (props) => {
   const { MainState, dispatch } = useContext(MainContext)
+
+  const [timer, setTimer] = useState(10)
+  const timeOutCallback = useCallback(
+    () => setTimer((currTimer) => currTimer - 1),
+    []
+  )
 
   const [form] = Form.useForm()
   const router = useRouter()
@@ -58,6 +65,26 @@ const OTPScreen = (props) => {
     }
   }, [])
   console.log({ MainState })
+
+  useEffect(() => {
+    timer > 0 && setTimeout(timeOutCallback, 1000)
+  }, [timer, timeOutCallback])
+
+  console.log({ timer: `${timer}`?.length })
+
+  const resetTimer = async function () {
+    const resendOtp = await request({
+      apiurl: RESEND_OTP_TO_EMAIL_URL,
+      data: { email },
+    })
+
+    if (resendOtp?.success) {
+      toastMessage(SUCCESS_MESSAGE_TYPE, resendOtp?.message)
+    }
+    if (!timer) {
+      setTimer(10)
+    }
+  }
   return (
     <>
       <Head>
@@ -68,6 +95,8 @@ const OTPScreen = (props) => {
       </Head>
       <div className="page_wrapper_withoutmargin">
         <OTPScreenUI
+          resetTimer={resetTimer}
+          timer={timer}
           loading={loading}
           form={form}
           handleSubmit={handleSubmit}

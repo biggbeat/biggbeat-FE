@@ -24,10 +24,6 @@ export default function Login() {
 
   const [loading, setloading] = useState(false)
 
-  useEffect(() => {
-    toastMessage(SUCCESS_MESSAGE_TYPE, 'hello')
-  }, [])
-
   const handleSubmit = async (values) => {
     setloading(true)
     const payload = {

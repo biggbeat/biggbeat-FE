@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import '@/styles/globals.css'
-import { ConfigProvider, Spin } from 'antd'
+import { ConfigProvider, Spin, theme as antTheme } from 'antd'
 import variables from '@/styles/variables.module.scss'
 import { AuthSharedLayout, PublicSharedLayout } from '@/layouts'
 import { useEffect, useState } from 'react'
@@ -13,10 +13,16 @@ import MainProvider from '@/context/MainContext'
 import { ACCESS_TYPES } from '@/constants'
 import { Router } from 'next/router'
 import LoadingPage from '@/components/loading/loading'
+import Head from 'next/head'
+import 'antd/dist/reset.css'
+import { createCache, extractStyle, StyleProvider } from '@ant-design/cssinjs'
+
 // import LoadingPage from '@/components/loading'
 const jost = Jost({ subsets: ['latin'] })
 function App({ Component, pageProps }) {
   const [loading, setLoading] = useState(() => false)
+
+  const cache = createCache()
 
   useEffect(() => {
     Router.events.on('routeChangeStart', (url) => {
@@ -27,6 +33,7 @@ function App({ Component, pageProps }) {
 
     Router.events.on('routeChangeComplete', (url) => {
       console.log({ url })
+      // setTimeout(() => {}, 1000)
       setLoading(false)
     })
 
@@ -38,37 +45,39 @@ function App({ Component, pageProps }) {
   }, [Router])
 
   return (
-    <ConfigProvider
-      theme={{
-        // hashed: false,
+    <>
+      <ConfigProvider
+        theme={{
+          // hashed: false,
 
-        token: {
-          colorIcon: variables.primaryText,
-          colorIconHover: variables.secondaryText,
-          fontFamily: `Jost`,
-          colorPrimary: variables.secondaryText,
-          colorLink: variables.primaryText,
-          colorLinkActive: variables.secondaryText,
-          colorLinkHover: variables.secondaryText,
-          colorPrimaryHover: variables.secondaryText,
-          // colorTextPlaceholder: variables.placeholderColor,
-          // colorPrimaryBg: variables.s,
-          // bgRed: variables.bgRed,
-        },
-      }}
-    >
-      <MainProvider>
-        {pageProps?.accessType === ACCESS_TYPES.AUTH ? (
-          <AuthSharedLayout loading={loading}>
-            <Component {...pageProps} />
-          </AuthSharedLayout>
-        ) : (
-          <PublicSharedLayout loading={loading}>
-            <Component {...pageProps} />
-          </PublicSharedLayout>
-        )}
-      </MainProvider>
-    </ConfigProvider>
+          token: {
+            colorIcon: variables.primaryText,
+            colorIconHover: variables.secondaryText,
+            fontFamily: `Jost`,
+            colorPrimary: variables.secondaryText,
+            colorLink: variables.primaryText,
+            colorLinkActive: variables.secondaryText,
+            colorLinkHover: variables.secondaryText,
+            colorPrimaryHover: variables.secondaryText,
+            // colorTextPlaceholder: variables.placeholderColor,
+            // colorPrimaryBg: variables.s,
+            // bgRed: variables.bgRed,
+          },
+        }}
+      >
+        <MainProvider>
+          {pageProps?.accessType === ACCESS_TYPES.AUTH ? (
+            <AuthSharedLayout loading={loading}>
+              <Component {...pageProps} />
+            </AuthSharedLayout>
+          ) : (
+            <PublicSharedLayout loading={loading}>
+              <Component {...pageProps} />
+            </PublicSharedLayout>
+          )}
+        </MainProvider>
+      </ConfigProvider>
+    </>
   )
 }
 export default App

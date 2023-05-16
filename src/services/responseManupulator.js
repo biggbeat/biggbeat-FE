@@ -1,5 +1,6 @@
 import {
   ERROR_MESSAGE_TYPE,
+  ERROR_STATUS,
   SUCCESS_MESSAGE_TYPE,
   SUCCESS_STATUS,
   toastMessage,
@@ -12,13 +13,22 @@ export const manupulateResponse = (response) => {
     data: null,
   }
   console.log({ response })
-  if (response.data?.status !== SUCCESS_STATUS) {
+  if (response.data?.status === ERROR_STATUS) {
     sendresp.success = false
     sendresp.data = response?.data
     sendresp.message = response?.data?.message || ''
     toastMessage(ERROR_MESSAGE_TYPE, response?.data?.message || '')
     return sendresp
-  } else if (response?.status === 200) {
+  } else if (response.data?.status !== SUCCESS_STATUS) {
+    sendresp.success = false
+    sendresp.data = response?.data
+    sendresp.message = response?.data?.message || ''
+    toastMessage(ERROR_MESSAGE_TYPE, response?.data?.message || '')
+    return sendresp
+  } else if (
+    response.data?.status === SUCCESS_STATUS &&
+    response?.status === 200
+  ) {
     sendresp.success = true
     sendresp.data = response.data
     sendresp.message = response.data.message || ''

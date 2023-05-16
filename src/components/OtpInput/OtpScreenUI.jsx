@@ -7,7 +7,7 @@ import {
 } from '@/constants'
 import { Button, Col, Form, Input, InputNumber, Row } from 'antd'
 import styles from './styles.module.scss'
-const OTPScreenUI = ({ loading, form, handleSubmit }) => {
+const OTPScreenUI = ({ loading, form, handleSubmit, resetTimer, timer }) => {
   return (
     <div className={styles.LoginPageUI}>
       <Row justify={'center'} className={styles.rowwrapper}>
@@ -23,7 +23,7 @@ const OTPScreenUI = ({ loading, form, handleSubmit }) => {
               onFinish={handleSubmit}
               autoComplete="off"
             >
-              <Row>
+              <Row align="middle" justify={'end'}>
                 <Col span={24}>
                   <Form.Item
                     name="otp"
@@ -51,8 +51,20 @@ const OTPScreenUI = ({ loading, form, handleSubmit }) => {
                     />
                   </Form.Item>
                 </Col>
+                <Col>
+                  <Button
+                    type="ghost"
+                    disabled={!timer ? false : true}
+                    onClick={() => {
+                      resetTimer()
+                    }}
+                    size="small"
+                  >
+                    Resend {`00:${`${timer}`.length > 1 ? timer : `0${timer}`}`}
+                  </Button>
+                </Col>
 
-                <Col span={24}>
+                <Col span={24} style={{ marginTop: '10px' }}>
                   <Button
                     loading={loading}
                     block
