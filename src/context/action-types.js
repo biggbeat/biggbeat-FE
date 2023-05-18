@@ -3,3 +3,9 @@ export const SET_USER_DATA = 'SET_USER_DATA'
 export const LOGOUT_USER = 'LOGOUT_USER'
 
 export const GET_USER = 'GET_USER'
+
+//CART TYPES
+export const SET_CART_DATA = 'SET_CART_DATA'
+export const DELETE_CART_DATA = 'DELETE_CART_DATA'
+export const SET_CART_ALL_DATA = 'SET_CART_ALL_DATA'
+export const SET_CART_QUANTITY_DATA = 'SET_CART_QUANTITY_DATA'

@@ -8,9 +8,13 @@ import {
 import { useContext, useState } from 'react'
 import { ConfirmationModal, LoginModal, SideBar } from '@/components'
 import style from './styles.module.scss'
-import { Avatar, Popover } from 'antd'
+import { Avatar, Badge, Popover } from 'antd'
 import { useRouter } from 'next/router'
-import { LOGIN_PAGE_ROUTE, SIGNUP_PAGE_ROUTE } from '@/constants'
+import {
+  CHECKOUT_PAGE_ROUTE,
+  LOGIN_PAGE_ROUTE,
+  SIGNUP_PAGE_ROUTE,
+} from '@/constants'
 import { MainContext } from '@/context/MainContext'
 import { LOGOUT_USER } from '@/context/action-types'
 const Header = ({ user = null }) => {
@@ -76,6 +80,7 @@ const Header = ({ user = null }) => {
     dispatch({ type: LOGOUT_USER })
     handleRoute('/')
   }
+
   return (
     <>
       <header className={style.mainHeader}>
@@ -122,7 +127,12 @@ const Header = ({ user = null }) => {
                 </Popover>
               )}
               <HeartOutlined className={style.navIcon} />
-              <ShoppingCartOutlined className={style.navIcon} />
+              <Badge dot={MainState?.cart?.length ? true : false} size="small">
+                <ShoppingCartOutlined
+                  className={style.navIcon}
+                  onClick={() => handleRoute(CHECKOUT_PAGE_ROUTE.url)}
+                />
+              </Badge>
               <MenuOutlined
                 className={style.navIconMenuDrawer}
                 onClick={handleClose}

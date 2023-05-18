@@ -39,6 +39,14 @@ export const GET_USER_DATA_WHITE_LIST = () => {
   return JSON.parse(localStorage.getItem(BRAND_NAME))
 }
 
+export const SET_USER_CART_WHITE_LIST = (data) => {
+  localStorage.setItem(BRAND_NAME + '_CART', JSON.stringify(data))
+}
+
+export const GET_USER_CART_WHITE_LIST = () => {
+  return JSON.parse(localStorage.getItem(BRAND_NAME + '_CART'))
+}
+
 export const toastMessage = (type, message) => {
   notification.open({
     type: type,
@@ -84,6 +92,10 @@ export const FORGOT_PASSWORD_PAGE_ROUTE = {
 export const SINGLE_PRODUCT_PAGE_ROUTE = {
   title: 'Product',
   url: '/:slug',
+}
+export const CHECKOUT_PAGE_ROUTE = {
+  title: 'Checkout',
+  url: '/checkout',
 }
 
 export const GET_ALL_COUNTRIES_URL = {

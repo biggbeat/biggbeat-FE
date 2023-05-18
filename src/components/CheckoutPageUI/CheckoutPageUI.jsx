@@ -3,7 +3,7 @@ import {
   Checkbox,
   Col,
   Form,
-  Image,
+  Image as AntImage,
   Input,
   InputNumber,
   Radio,
@@ -14,9 +14,9 @@ import { RiVisaFill } from 'react-icons/ri'
 import { TbTrashOff, TbTruckDelivery } from 'react-icons/tb'
 import { BsFillTagFill } from 'react-icons/bs'
 import variables from '@/styles/variables.module.scss'
-
+import Image from 'next/image'
 import styles from './styles.module.scss'
-import { DUMMY_IMAGE, FULL_ROW } from '@/constants'
+import { DUMMY_IMAGE, FALLBACK_IMAGE, FULL_ROW } from '@/constants'
 import {
   DeleteOutlined,
   MinusCircleOutlined,
@@ -25,7 +25,8 @@ import {
   PlusOutlined,
   PlusSquareOutlined,
 } from '@ant-design/icons'
-const CheckoutPageUI = () => {
+const CheckoutPageUI = ({ cartList, handleQuantity, handleDelete }) => {
+  console.log({})
   return (
     <div className={styles.checkPageWrapper}>
       <Form>
@@ -151,116 +152,123 @@ const CheckoutPageUI = () => {
               <Row>
                 <Col span={24}>
                   <Row gutter={[0, 16]}>
-                    <Col span={24}>
-                      <Row
-                        gutter={[16, 0]}
-                        justify={{ xs: 'center', sm: 'start' }}
-                      >
-                        <Col>
-                          <div>
-                            <Image src={DUMMY_IMAGE} width={100} />
-                          </div>
-                        </Col>
-                        <Col>
-                          <div className={styles.price_wrapper}>
-                            <h5>Rs 2,009</h5>
-                            <strike>
-                              <h6>Rs 2,009</h6>
-                            </strike>
-                            <span>{`(-50%)`}</span>
-                          </div>
-                          <div className={styles.price_wrapper}>
-                            <h6>Oxy Men Black Leather Loafer</h6>
-                          </div>
-                          <div className={styles.price_wrapper}>
-                            <Input
-                              className={styles.quantity_input}
-                              // width={50}
-                              maxLength={3}
-                              max={100}
-                              min={1}
-                              controls={false}
-                              suffix={
-                                <PlusOutlined
-                                  style={{
-                                    fontSize: 12,
-                                    fontWeight: 'bold',
-                                    margin: 0,
-                                  }}
+                    {!cartList?.length ? (
+                      <Col span={24}>
+                        <h5>No Items in Cart</h5>
+                      </Col>
+                    ) : (
+                      cartList?.map((item) => (
+                        <Col span={24}>
+                          <Row
+                            gutter={[16, 0]}
+                            justify={{ xs: 'center', sm: 'start' }}
+                          >
+                            <Col
+                              lg={{ span: 6 }}
+                              md={{ span: 8 }}
+                              xs={{ span: 24 }}
+                              sm={{ span: 4 }}
+                              xl={{ span: 6 }}
+                            >
+                              <div className={styles.prodImageWrapper}>
+                                <Image
+                                  src={item?.images[0]?.mobileImage}
+                                  // fill
+                                  className={styles.prodimage}
+                                  quality={100}
+                                  fill
+                                  loading="lazy"
+                                  // width={100}
                                 />
-                              }
-                              prefix={
-                                <MinusOutlined
-                                  style={{ fontSize: 12, fontWeight: 'bold' }}
-                                />
-                              }
-                            />
-                          </div>
-                          <div className={styles.price_wrapper}>
-                            <Button type="ghost">
-                              <span className={styles.delete_btn_wrapper}>
-                                <DeleteOutlined /> <span>Delete</span>
-                              </span>
-                            </Button>
-                          </div>
+                              </div>
+                            </Col>
+                            <Col
+                              lg={{ span: 18 }}
+                              md={{ span: 16 }}
+                              xs={{ span: 24 }}
+                              sm={{ span: 20 }}
+                              xl={{ span: 18 }}
+                            >
+                              <div className={styles.price_wrapper}>
+                                <h5>Rs {item?.discountedPrice}</h5>
+                                <strike>
+                                  <h6>Rs {item?.price}</h6>
+                                </strike>
+                                <span>{`(-${item?.percentageOff})`}</span>
+                              </div>
+                              <div className={styles.price_wrapper}>
+                                <h6>{item?.productTitle}</h6>
+                              </div>
+                              <div className={styles.price_wrapper}>
+                                <span className={styles.quantity_counter}>
+                                  <MinusOutlined
+                                    onClick={() => {
+                                      handleQuantity(
+                                        item,
+                                        Number(item?.quantity - 1)
+                                      )
+                                    }}
+                                    style={{ fontSize: 12, fontWeight: 'bold' }}
+                                  />
+
+                                  <span className={styles.counter}>
+                                    {item?.quantity}
+                                  </span>
+                                  <PlusOutlined
+                                    style={{
+                                      fontSize: 12,
+                                      fontWeight: 'bold',
+                                      margin: 0,
+                                    }}
+                                    onClick={() => {
+                                      handleQuantity(
+                                        item,
+                                        Number(item?.quantity + 1)
+                                      )
+                                    }}
+                                  />
+                                </span>
+                                {/* <Input
+                                    className={styles.quantity_input}
+                                    // width={50}
+                                    maxLength={3}
+                                    max={100}
+                                    min={1}
+                                    controls={false}
+                                    value={item?.quantity}
+                                    // onChange={(e) => {
+                                    //   console.log({ e: e.target.value })
+                                    // }}
+                                    disabled
+                                    suffix={
+                                      <PlusOutlined
+                                        style={{
+                                          fontSize: 12,
+                                          fontWeight: 'bold',
+                                          margin: 0,
+                                        }}
+                                      />
+                                    }
+                                    prefix={
+                                      <MinusOutlined
+                                        style={{ fontSize: 12, fontWeight: 'bold' }}
+                                      />
+                                    }
+                                  /> */}
+                                <Button
+                                  type="ghost"
+                                  onClick={() => handleDelete(item?.slug)}
+                                >
+                                  <span className={styles.delete_btn_wrapper}>
+                                    <DeleteOutlined /> <span>Delete</span>
+                                  </span>
+                                </Button>
+                              </div>
+                            </Col>
+                          </Row>
                         </Col>
-                      </Row>
-                    </Col>
-                    <Col span={24}>
-                      <Row
-                        gutter={[16, 0]}
-                        justify={{ xs: 'center', sm: 'start' }}
-                      >
-                        <Col>
-                          <div>
-                            <Image src={DUMMY_IMAGE} width={100} />
-                          </div>
-                        </Col>
-                        <Col>
-                          <div className={styles.price_wrapper}>
-                            <h5>Rs 2,009</h5>
-                            <strike>
-                              <h6>Rs 2,009</h6>
-                            </strike>
-                            <span>{`(-50%)`}</span>
-                          </div>
-                          <div className={styles.price_wrapper}>
-                            <h6>Oxy Men Black Leather Loafer</h6>
-                          </div>
-                          <div className={styles.price_wrapper}>
-                            <Input
-                              className={styles.quantity_input}
-                              // width={50}
-                              maxLength={3}
-                              max={100}
-                              min={1}
-                              controls={false}
-                              suffix={
-                                <PlusOutlined
-                                  style={{
-                                    fontSize: 12,
-                                    fontWeight: 'bold',
-                                    margin: 0,
-                                  }}
-                                />
-                              }
-                              prefix={
-                                <MinusOutlined
-                                  style={{ fontSize: 12, fontWeight: 'bold' }}
-                                />
-                              }
-                            />
-                          </div>
-                          <div className={styles.price_wrapper}>
-                            <Button type="ghost">
-                              <span className={styles.delete_btn_wrapper}>
-                                <DeleteOutlined /> <span>Delete</span>
-                              </span>
-                            </Button>
-                          </div>
-                        </Col>
-                      </Row>
-                    </Col>
+                      ))
+                    )}
                     <Col span={24}>
                       <Row gutter={[0, 16]}>
                         <Col span={24}>

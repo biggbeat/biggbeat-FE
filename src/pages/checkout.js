@@ -1,8 +1,28 @@
 import CheckoutPageUI from '@/components/CheckoutPageUI/CheckoutPageUI'
 import { BRAND_NAME } from '@/constants'
+import {
+  DELETE_CART_DATA,
+  SET_CART_QUANTITY_DATA,
+} from '@/context/action-types'
+import { MainContext } from '@/context/MainContext'
 import Head from 'next/head'
+import { useContext } from 'react'
 
 const Checkout = () => {
+  const { MainState, dispatch } = useContext(MainContext)
+  console.log({ MainState })
+
+  const cartList = [...(MainState?.cart ?? [])]
+
+  const handleQuantity = (data, quantity) => {
+    console.log({ data, quantity })
+    if (quantity >= 1 && quantity < 100) {
+      dispatch({ type: SET_CART_QUANTITY_DATA, payload: { ...data, quantity } })
+    }
+  }
+  const handleDelete = (slug) => {
+    dispatch({ type: DELETE_CART_DATA, payload: slug })
+  }
   return (
     <>
       <Head>
@@ -12,7 +32,11 @@ const Checkout = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={'page_wrapper'}>
-        <CheckoutPageUI />
+        <CheckoutPageUI
+          cartList={cartList}
+          handleQuantity={handleQuantity}
+          handleDelete={handleDelete}
+        />
       </div>
     </>
   )

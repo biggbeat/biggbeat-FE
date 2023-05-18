@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useRouter } from 'next/router'
 import { getSlug } from '@/services/commosService'
 import SliderImage from 'react-zoom-slider'
@@ -17,12 +17,17 @@ import {
   GET_HOME_BANNER_URL,
   GET_PRODUCT_BY_SLUG,
   SINGLE_PRODUCT_PAGE_ROUTE,
+  SUCCESS_MESSAGE_TYPE,
+  toastMessage,
 } from '@/constants'
 import { Breadcrumbs } from '@/components'
 import { request } from '@/actions'
+import { MainContext } from '@/context/MainContext'
+import { SET_CART_DATA } from '@/context/action-types'
 
 const Category = (props) => {
   const router = useRouter()
+  const { MainState, dispatch } = useContext(MainContext)
 
   const breadcrumbs = [
     {
@@ -85,6 +90,11 @@ const Category = (props) => {
 
   const handleRoute = (url) => {
     router.push(url)
+  }
+
+  const handleAddToCartProd = () => {
+    dispatch({ type: SET_CART_DATA, payload: product })
+    toastMessage(SUCCESS_MESSAGE_TYPE, 'Product added to cart')
   }
 
   return (
@@ -228,7 +238,13 @@ const Category = (props) => {
             </div>
             <div className={styles.checkoutContainer}>
               <div className={`${styles.checkoutBtnDiv}`}>
-                <button className={styles.checkoutBtn}>Add to Bag</button>
+                <button
+                  className={styles.checkoutBtn}
+                  onClick={handleAddToCartProd}
+                >
+                  {/* <Spin className="loader-white" /> */}
+                  Add to Bag
+                </button>
               </div>
               <div className={`${styles.wishlistContainer}`}>
                 <div className="wishlist-container">
