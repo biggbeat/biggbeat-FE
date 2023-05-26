@@ -1,4 +1,3 @@
-// import 'antd/dist/antd.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
@@ -21,8 +20,6 @@ import { createCache, extractStyle, StyleProvider } from '@ant-design/cssinjs'
 const jost = Jost({ subsets: ['latin'] })
 function App({ Component, pageProps }) {
   const [loading, setLoading] = useState(() => false)
-
-  const cache = createCache()
 
   useEffect(() => {
     Router.events.on('routeChangeStart', (url) => {
@@ -80,4 +77,5 @@ function App({ Component, pageProps }) {
     </>
   )
 }
+
 export default App
