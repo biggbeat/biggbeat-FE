@@ -1,16 +1,29 @@
+import { request } from '@/actions'
 import CheckoutPageUI from '@/components/CheckoutPageUI/CheckoutPageUI'
-import { BRAND_NAME } from '@/constants'
+import {
+  BRAND_NAME,
+  GET_CATEGORY_URL,
+  GET_CITY_URL,
+  GET_COUNTRY_URL,
+} from '@/constants'
 import {
   DELETE_CART_DATA,
   SET_CART_QUANTITY_DATA,
 } from '@/context/action-types'
 import { MainContext } from '@/context/MainContext'
+import { Form } from 'antd'
 import Head from 'next/head'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
-const Checkout = () => {
+const Checkout = (props) => {
+  const [form] = Form.useForm()
+  const paymentType = Form.useWatch('payment_type', form)
+  const country = Form.useWatch('country', form)
+
   const { MainState, dispatch } = useContext(MainContext)
-  console.log({ MainState })
+
+  const [allCities, setcities] = useState([])
+  const [citiesLoading, setcitiesLoading] = useState(false)
 
   const cartList = [...(MainState?.cart ?? [])]
 
@@ -23,6 +36,73 @@ const Checkout = () => {
   const handleDelete = (slug) => {
     dispatch({ type: DELETE_CART_DATA, payload: slug })
   }
+
+  const countries = [
+    ...(props.countries?.data?.map((item) => {
+      return {
+        ...item,
+        label: item?.country,
+        value: item?.country,
+      }
+    }) ?? []),
+  ]
+
+  const cities = [
+    ...(allCities?.map((item) => {
+      return {
+        label: item,
+        value: item,
+      }
+    }) ?? []),
+  ]
+
+  const subtotal = cartList?.length
+    ? cartList?.reduce((total, item) => {
+        console.log({ total })
+        return Number(total?.total) + Number(item?.total)
+      })
+    : 0
+
+  const deliveryCharges =
+    countries?.find((dt) => dt.label === country)?.shipment || 0
+
+  const totalAmount = subtotal + deliveryCharges
+  console.log({
+    props,
+    paymentType,
+    cartList,
+    deliveryCharges,
+    countries,
+    subtotal,
+  })
+
+  const handleSubmit = (values) => {
+    console.log({ values })
+  }
+
+  const initialValues = {
+    payment_type: 'cod',
+    country: props?.defaultSelectedCountry,
+  }
+  const handleChangeCountry = async (country) => {
+    setcitiesLoading(true)
+    const cities = await request({
+      apiurl: GET_CITY_URL,
+      data: {
+        country,
+      },
+    })
+
+    setcities(cities.data?.data)
+    setcitiesLoading(false)
+  }
+
+  useEffect(() => {
+    if (props?.cities?.data) {
+      setcities(props?.cities?.data)
+    }
+  }, [props.cities])
+
   return (
     <>
       <Head>
@@ -33,12 +113,43 @@ const Checkout = () => {
       </Head>
       <div className={'page_wrapper'}>
         <CheckoutPageUI
+          initialValues={initialValues}
+          paymentType={paymentType}
+          form={form}
+          cities={cities}
+          countries={countries}
           cartList={cartList}
+          citiesLoading={citiesLoading}
+          subtotal={subtotal}
+          deliveryCharges={deliveryCharges}
+          totalAmount={totalAmount}
+          handleChangeCountry={handleChangeCountry}
           handleQuantity={handleQuantity}
           handleDelete={handleDelete}
+          handleSubmit={handleSubmit}
         />
       </div>
     </>
   )
 }
 export default Checkout
+
+export async function getServerSideProps(context) {
+  // let slug = getSlug(context.query.slug)
+  const country = await request({ apiurl: GET_COUNTRY_URL })
+
+  const cities = await request({
+    apiurl: GET_CITY_URL,
+    data: {
+      country: 'Hungary',
+    },
+  })
+
+  return {
+    props: {
+      cities: cities?.data,
+      countries: country.data,
+      defaultSelectedCountry: 'Hungary',
+    },
+  }
+}

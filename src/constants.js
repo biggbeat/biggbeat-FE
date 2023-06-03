@@ -188,6 +188,22 @@ export const GET_PRODUCT_BY_SLUG = {
   requestType: REQUEST_TYPE.post,
 }
 
+//country apis
+export const GET_COUNTRY_URL = {
+  url: '/location/getAllCountries',
+  accesstoken: false,
+  headers: false,
+  requestType: REQUEST_TYPE.get,
+}
+
+//cities apis
+export const GET_CITY_URL = {
+  url: '/location/getCitiesByCountry',
+  accesstoken: false,
+  headers: false,
+  requestType: REQUEST_TYPE.post,
+}
+
 //validations
 export const validateMsgRequired = (label) => {
   return `${label} is required`

@@ -29,6 +29,8 @@ const Category = (props) => {
   const router = useRouter()
   const { MainState, dispatch } = useContext(MainContext)
 
+  const [selectAttributes, setselectAttributes] = useState([])
+
   const breadcrumbs = [
     {
       href: 'home',
@@ -78,6 +80,18 @@ const Category = (props) => {
   // ]
 
   useEffect(() => {
+    if (props?.product) {
+      let defaultAttrib = []
+
+      props?.product?.attribute.forEach((element) => {
+        defaultAttrib.push({
+          attributeKey: element?.parentAttribute,
+          attributeValue: element?.childAttribute[0].title,
+        })
+      })
+
+      setselectAttributes(defaultAttrib)
+    }
     console.log('query : ', props)
   }, [])
 
@@ -93,8 +107,32 @@ const Category = (props) => {
   }
 
   const handleAddToCartProd = () => {
-    dispatch({ type: SET_CART_DATA, payload: product })
+    let obj = { ...product, attribute: selectAttributes }
+
+    dispatch({
+      type: SET_CART_DATA,
+      payload: obj,
+    })
     toastMessage(SUCCESS_MESSAGE_TYPE, 'Product added to cart')
+  }
+
+  const handleProdAttribute = (attributeKey, attributeValue) => {
+    let clone = [...(selectAttributes ?? [])]
+
+    let findIfContainsAttrib = clone?.findIndex(
+      (dt) => dt?.attributeKey === attributeKey
+    )
+
+    if (findIfContainsAttrib >= 0) {
+      clone.splice(findIfContainsAttrib, 1, {
+        ...clone[findIfContainsAttrib],
+        attributeValue,
+      })
+    } else {
+      clone.push({ attributeKey, attributeValue })
+    }
+
+    setselectAttributes(clone)
   }
 
   return (
@@ -219,14 +257,26 @@ const Category = (props) => {
                   <div>
                     {item?.childAttribute?.map((childItem) => (
                       <p
-                        className={`${styles.sizes}`}
-                        onClick={() =>
-                          handleRoute(
-                            SINGLE_PRODUCT_PAGE_ROUTE.url.replace(
-                              ':slug',
-                              childItem?.productSlug
+                        className={`${styles.sizes} ${
+                          selectAttributes?.find(
+                            (dt) => dt?.attributeKey === item?.parentAttribute
+                          )?.attributeValue === childItem?.title
+                            ? styles.active
+                            : ''
+                        }`}
+                        onClick={
+                          () => {
+                            handleProdAttribute(
+                              item?.parentAttribute,
+                              childItem?.title
                             )
-                          )
+                          }
+                          // handleRoute(
+                          //   SINGLE_PRODUCT_PAGE_ROUTE.url.replace(
+                          //     ':slug',
+                          //     childItem?.productSlug
+                          //   )
+                          // )
                         }
                       >
                         {childItem?.title}

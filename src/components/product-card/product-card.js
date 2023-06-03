@@ -67,7 +67,7 @@ const ProductCard = ({ item }) => {
         <Col span={24} className={style.hide}>
           <Button
             block
-            type="ghost"
+            type="primary"
             className={`${style.bgRed} ${style.textWhite}`}
           >
             View

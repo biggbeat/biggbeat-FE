@@ -29,15 +29,42 @@ export function MainReducer(state, action) {
     case SET_CART_DATA: {
       let cloneCart = [...(state.cart ?? [])]
       let findProdInCart = cloneCart?.findIndex(
-        (dt) => dt?.slug === action.payload.slug
+        (dt) =>
+          dt?.slug === action.payload.slug &&
+          dt?.attribute?.every((dta) =>
+            action?.payload?.attribute?.find(
+              (payloadAttrib) =>
+                payloadAttrib?.attributeValue === dta?.attributeValue &&
+                payloadAttrib?.attributeKey === dta?.attributeKey
+            )
+              ? true
+              : false
+          )
       )
       if (findProdInCart >= 0) {
-        cloneCart.splice(findProdInCart, 1, {
+        let payload = {
           ...cloneCart[findProdInCart],
-          quantity: cloneCart[findProdInCart].quantity + 1,
+        }
+        const updated_quantity = payload.quantity + 1
+
+        cloneCart.splice(findProdInCart, 1, {
+          ...payload,
+          quantity: updated_quantity,
+          total: payload?.inDiscount
+            ? updated_quantity * Number(payload?.discountedPrice)
+            : updated_quantity * Number(payload?.price),
         })
       } else {
-        cloneCart.push({ ...action.payload, quantity: 1 })
+        let payload = {
+          ...action.payload,
+        }
+        cloneCart.push({
+          ...payload,
+          quantity: 1,
+          total: payload?.inDiscount
+            ? Number(payload?.discountedPrice)
+            : Number(payload?.price),
+        })
       }
       SET_USER_CART_WHITE_LIST(cloneCart)
       return { ...state, cart: cloneCart }
@@ -46,11 +73,26 @@ export function MainReducer(state, action) {
     case SET_CART_QUANTITY_DATA: {
       let cloneCart = [...(state.cart ?? [])]
       let findProdInCart = cloneCart?.findIndex(
-        (dt) => dt?.slug === action.payload.slug
+        (dt) =>
+          dt?.slug === action.payload.slug &&
+          dt?.attribute?.every((dta) =>
+            action?.payload?.attribute?.some(
+              (payloadAttrib) =>
+                payloadAttrib?.attributeValue === dta?.attributeValue &&
+                payloadAttrib?.attributeKey === dta?.attributeKey
+            )
+          )
       )
+      console.log({ findProdInCart, P: action.payload })
       if (findProdInCart >= 0) {
-        cloneCart.splice(findProdInCart, 1, {
+        let payload = {
           ...action.payload,
+        }
+        cloneCart.splice(findProdInCart, 1, {
+          ...payload,
+          total: payload?.inDiscount
+            ? payload?.quantity * Number(payload?.discountedPrice)
+            : payload.quantity * Number(payload?.price),
         })
       }
       SET_USER_CART_WHITE_LIST(cloneCart)

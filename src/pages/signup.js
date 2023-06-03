@@ -31,14 +31,15 @@ export default function SignUp() {
       apiurl: SIGN_UP_URL,
       data: payload,
     })
-
-    router.push(
-      {
-        pathname: OTP_PAGE_ROUTE.url,
-        query: { email: values?.email },
-      },
-      OTP_PAGE_ROUTE.url
-    )
+    if (signUpUser.success) {
+      router.push(
+        {
+          pathname: OTP_PAGE_ROUTE.url,
+          query: { email: values?.email },
+        },
+        OTP_PAGE_ROUTE.url
+      )
+    }
 
     setloading(false)
 

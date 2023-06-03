@@ -8,6 +8,7 @@ import {
   InputNumber,
   Radio,
   Row,
+  Select,
   Space,
 } from 'antd'
 import { RiVisaFill } from 'react-icons/ri'
@@ -16,7 +17,13 @@ import { BsFillTagFill } from 'react-icons/bs'
 import variables from '@/styles/variables.module.scss'
 import Image from 'next/image'
 import styles from './styles.module.scss'
-import { DUMMY_IMAGE, FALLBACK_IMAGE, FULL_ROW } from '@/constants'
+import {
+  DUMMY_IMAGE,
+  FALLBACK_IMAGE,
+  FULL_ROW,
+  validateMsgRequired,
+  validateMinLengthMessage,
+} from '@/constants'
 import {
   DeleteOutlined,
   MinusCircleOutlined,
@@ -25,11 +32,36 @@ import {
   PlusOutlined,
   PlusSquareOutlined,
 } from '@ant-design/icons'
-const CheckoutPageUI = ({ cartList, handleQuantity, handleDelete }) => {
-  console.log({})
+const CheckoutPageUI = ({
+  form,
+  cartList,
+  cities,
+  paymentType,
+  countries,
+  initialValues,
+  citiesLoading,
+
+  subtotal,
+  deliveryCharges,
+  totalAmount,
+
+  handleQuantity,
+  handleDelete,
+  handleSubmit,
+  handleChangeCountry,
+}) => {
   return (
     <div className={styles.checkPageWrapper}>
-      <Form>
+      <Form
+        form={form}
+        name="OrderForm"
+        initialValues={initialValues}
+        onFinish={handleSubmit}
+        scrollToFirstError={{
+          behavior: 'smooth',
+          scrollMode: 'always',
+        }}
+      >
         <Row gutter={[16, 16]} justify="center">
           <Col
             xl={{ span: 10 }}
@@ -44,21 +76,61 @@ const CheckoutPageUI = ({ cartList, handleQuantity, handleDelete }) => {
               <Row className={styles.form_row}>
                 <Col span={24}>
                   <label>First Name</label>
-                  <Form.Item>
-                    <Input size="large" placeholder="First Name" />
+                  <Form.Item
+                    name={'first_name'}
+                    rules={[
+                      {
+                        required: true,
+                        message: validateMsgRequired('First Name'),
+                      },
+                      {
+                        min: 3,
+                        message: validateMinLengthMessage('3'),
+                      },
+                    ]}
+                  >
+                    <Input
+                      autoFocus={true}
+                      size="large"
+                      placeholder="First Name"
+                    />
                   </Form.Item>
                 </Col>
                 <Col span={24}>
                   <label>Last Name</label>
 
-                  <Form.Item>
+                  <Form.Item
+                    name={'last_name'}
+                    rules={[
+                      {
+                        required: true,
+                        message: validateMsgRequired('Last Name'),
+                      },
+                      {
+                        min: 3,
+                        message: validateMinLengthMessage('3'),
+                      },
+                    ]}
+                  >
                     <Input placeholder="Last Name" size="large" />
                   </Form.Item>
                 </Col>
                 <Col span={24}>
                   <label>Cell Number</label>
 
-                  <Form.Item>
+                  <Form.Item
+                    name={'contactNo'}
+                    rules={[
+                      {
+                        required: true,
+                        message: validateMsgRequired('Contact Number'),
+                      },
+                      {
+                        min: 10,
+                        message: validateMinLengthMessage('10'),
+                      },
+                    ]}
+                  >
                     <Input placeholder="Cell Number" size="large" />
                   </Form.Item>
                 </Col>
@@ -66,42 +138,106 @@ const CheckoutPageUI = ({ cartList, handleQuantity, handleDelete }) => {
                 <Col span={24}>
                   <label>Complete Address {`( H #, ST # & Landmark )`}</label>
 
-                  <Form.Item>
+                  <Form.Item
+                    name={'address'}
+                    rules={[
+                      {
+                        required: true,
+                        message: validateMsgRequired('Address'),
+                      },
+                      {
+                        min: 5,
+                        message: validateMinLengthMessage('5'),
+                      },
+                    ]}
+                  >
                     <Input placeholder="Address" size="large" />
+                  </Form.Item>
+                </Col>
+                <Col span={24}>
+                  <label>Country</label>
+
+                  <Form.Item
+                    name={'country'}
+                    rules={[
+                      {
+                        required: true,
+                        message: validateMsgRequired('Country'),
+                      },
+                    ]}
+                  >
+                    <Select
+                      showSearch
+                      onChange={handleChangeCountry}
+                      placeholder="Country"
+                      size="large"
+                      options={countries}
+                    />
                   </Form.Item>
                 </Col>
                 <Col span={24}>
                   <label>City</label>
 
-                  <Form.Item>
-                    <Input placeholder="City" size="large" />
+                  <Form.Item
+                    name={'city'}
+                    rules={[
+                      {
+                        required: true,
+                        message: validateMsgRequired('City'),
+                      },
+                    ]}
+                  >
+                    <Select
+                      loading={citiesLoading}
+                      disabled={citiesLoading}
+                      defaultActiveFirstOption
+                      showSearch
+                      placeholder="City"
+                      size="large"
+                      options={cities}
+                    />
                   </Form.Item>
                 </Col>
                 <Col span={24}>
-                  <Form.Item>
+                  <Form.Item name={'save_address'}>
                     <Checkbox>Mark as default address</Checkbox>
                   </Form.Item>
                 </Col>
               </Row>
             </div>
+
             <div className={styles.address}>
               <h6>Payment Type</h6>
-              <Form.Item>
+              <Form.Item
+                name="payment_type"
+                rules={[
+                  {
+                    required: true,
+                    message: validateMsgRequired('Payment Type'),
+                  },
+                ]}
+              >
                 <Radio.Group
                   buttonStyle="solid"
                   className={styles.radioButtonWrapper}
                 >
                   <Radio
                     value={'card'}
-                    className={`${styles.options} ${styles.optionsWithBorder}`}
+                    className={`${styles.options} ${
+                      paymentType === 'card' ? styles.optionsWithBorder : ''
+                    }`}
                   >
                     <div>
                       <RiVisaFill size={48} color="#1a0dab" />
-                      {/* <FaCcVisa size={40} color="#1a0dab" /> */}
                       <h6>Credit/Debit Card</h6>
                     </div>
                   </Radio>
-                  <Radio value={'cod'} className={styles.options}>
+                  <Radio
+                    value={'cod'}
+                    className={`${styles.options} ${
+                      paymentType === 'cod' ? styles.optionsWithBorder : ''
+                    }`}
+                  >
                     <div>
                       <TbTruckDelivery size={48} color={variables.bgRed} />
                       <h6>Cash on Delivery</h6>
@@ -112,7 +248,7 @@ const CheckoutPageUI = ({ cartList, handleQuantity, handleDelete }) => {
             </div>
             <Row>
               <Col {...FULL_ROW} sm={{ span: 0 }} xs={{ span: 0 }}>
-                <Button type="primary" block size="large">
+                <Button type="primary" block size="large" htmlType="submit">
                   {' '}
                   Place Order
                 </Button>
@@ -172,7 +308,7 @@ const CheckoutPageUI = ({ cartList, handleQuantity, handleDelete }) => {
                             >
                               <div className={styles.prodImageWrapper}>
                                 <Image
-                                  src={item?.images[0]?.mobileImage}
+                                  src={item?.images[0]?.webImage}
                                   // fill
                                   className={styles.prodimage}
                                   quality={100}
@@ -228,33 +364,7 @@ const CheckoutPageUI = ({ cartList, handleQuantity, handleDelete }) => {
                                     }}
                                   />
                                 </span>
-                                {/* <Input
-                                    className={styles.quantity_input}
-                                    // width={50}
-                                    maxLength={3}
-                                    max={100}
-                                    min={1}
-                                    controls={false}
-                                    value={item?.quantity}
-                                    // onChange={(e) => {
-                                    //   console.log({ e: e.target.value })
-                                    // }}
-                                    disabled
-                                    suffix={
-                                      <PlusOutlined
-                                        style={{
-                                          fontSize: 12,
-                                          fontWeight: 'bold',
-                                          margin: 0,
-                                        }}
-                                      />
-                                    }
-                                    prefix={
-                                      <MinusOutlined
-                                        style={{ fontSize: 12, fontWeight: 'bold' }}
-                                      />
-                                    }
-                                  /> */}
+
                                 <Button
                                   type="ghost"
                                   onClick={() => handleDelete(item?.slug)}
@@ -277,11 +387,11 @@ const CheckoutPageUI = ({ cartList, handleQuantity, handleDelete }) => {
                               <h6>Subtotal</h6>
                             </Col>
                             <Col>
-                              <h6>Rs 5,222</h6>
+                              <h6>Rs {subtotal}</h6>
                             </Col>
                           </Row>
                         </Col>
-                        <Col span={24}>
+                        {/* <Col span={24}>
                           <Row justify={'space-between'}>
                             <Col>
                               <h6>Subtotal</h6>
@@ -290,14 +400,14 @@ const CheckoutPageUI = ({ cartList, handleQuantity, handleDelete }) => {
                               <h6>Rs 5,222</h6>
                             </Col>
                           </Row>
-                        </Col>
+                        </Col> */}
                         <Col span={24}>
                           <Row justify={'space-between'}>
                             <Col>
                               <h6>Delivery Charges</h6>
                             </Col>
                             <Col>
-                              <h6>Rs 150</h6>
+                              <h6>Rs {deliveryCharges}</h6>
                             </Col>
                           </Row>
                         </Col>
@@ -307,7 +417,7 @@ const CheckoutPageUI = ({ cartList, handleQuantity, handleDelete }) => {
                               <h6>Total</h6>
                             </Col>
                             <Col>
-                              <h5>Rs 5447</h5>
+                              <h5>Rs {totalAmount}</h5>
                             </Col>
                           </Row>
                         </Col>
@@ -326,7 +436,7 @@ const CheckoutPageUI = ({ cartList, handleQuantity, handleDelete }) => {
                 md={{ span: 0 }}
                 lg={{ span: 0 }}
               >
-                <Button type="primary" block size="large">
+                <Button type="primary" block size="large" htmlType="submit">
                   {' '}
                   Place Order
                 </Button>
