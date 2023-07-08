@@ -33,10 +33,10 @@ export default function Home(props) {
   // const state = useSelector((state) => state)
   // const dispatch = useDispatch()
   // console.log({ state }, dataHandler.store.getState().user.user.jwt)
-  const banners = props?.banners.data?.data
-  const sections = props?.banners.data?.data
-  const categories = props?.categories.data?.data
-  const categoriesProducts = props?.categoriesProducts.data?.data
+  const banners = props?.banners?.data?.data || null
+  const sections = props?.banners?.data?.data || null
+  const categories = props?.categories?.data?.data || null
+  const categoriesProducts = props?.categoriesProducts?.data?.data || null
 
   // useEffect(() => {}, [MainState])
 
@@ -86,6 +86,7 @@ export async function getServerSideProps() {
   const categoriesProducts = await request({
     apiurl: GET_ALL_CATEGORY_PRODUCTS_URL,
   })
+  console.log({ banners })
   // Pass data to the page via props
   return {
     props: {

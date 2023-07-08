@@ -11,6 +11,7 @@ import {
   SET_CART_QUANTITY_DATA,
 } from '@/context/action-types'
 import { MainContext } from '@/context/MainContext'
+import { getSubtotalResponse } from '@/services/responseManupulator'
 import { Form } from 'antd'
 import Head from 'next/head'
 import { useContext, useEffect, useState } from 'react'
@@ -56,13 +57,13 @@ const Checkout = (props) => {
     }) ?? []),
   ]
 
-  const subtotal = cartList?.length
-    ? cartList?.reduce((total, item) => {
-        console.log({ total })
-        return Number(total?.total) + Number(item?.total)
-      })
-    : 0
-
+  const subtotal = getSubtotalResponse(cartList)
+  // const subtotalw = cartList?.length
+  //   ? cartList?.reduce((total, item) => {
+  //       console.log({ totalssss: item })
+  //       return (total += item?.total)
+  //     })
+  //   : 0
   const deliveryCharges =
     countries?.find((dt) => dt.label === country)?.shipment || 0
 

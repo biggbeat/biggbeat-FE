@@ -1,6 +1,4 @@
 import { notification } from 'antd'
-import { useContext } from 'react'
-import { MainContext } from './context/MainContext'
 
 // export const BASE_URL = 'https://restcountries.com/v3.1'
 export const BASE_URL = 'https://biggbeat.onrender.com'
@@ -48,11 +46,11 @@ export const GET_USER_CART_WHITE_LIST = () => {
 }
 
 export const toastMessage = (type, message) => {
-  notification.open({
-    type: type,
-    message: SUCCESS_MESSAGE_TYPE === type ? 'Success' : 'Error',
-    description: message,
-  })
+  // notification.open({
+  //   type: type,
+  //   message: SUCCESS_MESSAGE_TYPE === type ? 'Success' : 'Error',
+  //   description: message,
+  // })
 }
 
 ////////////////////public routes

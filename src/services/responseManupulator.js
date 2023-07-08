@@ -37,3 +37,13 @@ export const manupulateResponse = (response) => {
     return sendresp
   }
 }
+
+export const getSubtotalResponse = (data) => {
+  let total = 0
+  if (data?.length) {
+    for (const item of data) {
+      total += item?.total
+    }
+  }
+  return total
+}
