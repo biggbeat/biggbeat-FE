@@ -79,7 +79,7 @@ export default function Home(props) {
   )
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const banners = await request({ apiurl: GET_HOME_BANNER_URL })
   const sections = await request({ apiurl: GET_SECTIONS_URL })
   const categories = await request({ apiurl: GET_CATEGORY_URL })

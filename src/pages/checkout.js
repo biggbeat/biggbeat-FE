@@ -135,7 +135,7 @@ const Checkout = (props) => {
 }
 export default Checkout
 
-export async function getServerSideProps(context) {
+export async function getStaticProps() {
   // let slug = getSlug(context.query.slug)
   const country = await request({ apiurl: GET_COUNTRY_URL })
 
